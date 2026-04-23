@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@config "../../tailwind.config.mjs";
+@plugin "@tailwindcss/typography";
+
+/* ── CSS Variables ── */
+:root {
+  --bg: #0a0a0b;
+  --fg: #ededf0;
+  --muted: #8a8a93;
+  --border: #17171b;
+  --accent: #534AB7;
+}
+
+.dark {
+  --bg: #0a0a0b;
+  --fg: #ededf0;
+  --muted: #8a8a93;
+  --border: #17171b;
+  --accent: #534AB7;
+}
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Headings lowercase ── */
+h1, h2, h3 {
+  text-transform: lowercase;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: #534AB7;
+  color: #ededf0;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #17171b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #534AB7;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6158d1;
+}
