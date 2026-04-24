@@ -9,7 +9,7 @@ const { videos } = Astro.props;
 
 function fmtDate(d: string) {
   try {
-    return new Intl.DateTimeFormat('tr-TR', {
+    return new Intl.DateTimeFormat('en-US', {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -20,14 +20,14 @@ function fmtDate(d: string) {
 }
 ---
 
-<section id="videolar" class="mx-auto max-w-[1200px] px-5 mt-24">
+<section id="videos" class="mx-auto max-w-[1200px] px-5 mt-24">
   <div class="flex items-baseline justify-between mb-8">
-    <h2 class="font-mono text-sm text-ink-secondary">son videolar</h2>
+    <h2 class="font-mono text-sm text-ink-secondary lowercase">latest videos</h2>
     <a
-      href="/videolar"
+      href="/videos"
       class="text-xs font-mono text-ink-tertiary hover:text-accent transition-colors duration-200"
     >
-      hepsi →
+      see all →
     </a>
   </div>
 
@@ -62,6 +62,6 @@ function fmtDate(d: string) {
       ))}
     </div>
   ) : (
-    <p class="text-sm text-ink-secondary">videolar yüklenemedi.</p>
+    <p class="text-sm text-ink-secondary">videos failed to load.</p>
   )}
 </section>

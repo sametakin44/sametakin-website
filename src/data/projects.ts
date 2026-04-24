@@ -1,59 +1,53 @@
+export type ProjectAccent = 'accent' | 'warm' | 'mint';
+
 export interface Project {
   id: string;
   title: string;
-  tag: string;
   summary: string;
-  subtitle: string;
-  href?: string;
+  accent: ProjectAccent;
 }
 
 export const projects: Project[] = [
   {
-    id: 'havelsan-pipeline',
-    title: 'pdf → fine-tuning dataset pipeline',
-    tag: 'generative ai',
+    id: 'finetune-pipeline',
+    title: 'PDF to fine-tuning dataset pipeline',
     summary:
-      'pdf dokümanlarını domain-spesifik fine-tuning veri setlerine çeviren çok-threadli bir pipeline kurdum. fastapi backend\'i gradio arayüzle entegre ettim, ardından ürettiğimiz veriyle dil modellerini fine-tune ettik.',
-    subtitle: 'havelsan main ai center · 2025',
+      'A multi-threaded system that turns PDF documents into domain-specific training data.',
+    accent: 'accent',
   },
   {
-    id: 'havelsan-chatbot',
-    title: 'sql veritabanı üzerinde agentic chatbot',
-    tag: 'agentic ai',
+    id: 'sql-agent',
+    title: 'Agentic SQL chatbot',
     summary:
-      'gerçek bir veritabanı mimarisini taklit eden deneysel bir sql şemasının üstünde, reason-act ajan mantığıyla konuşan bir chatbot akışı tasarladım. sentetik sql verisiyle uçtan uca test edildi.',
-    subtitle: 'havelsan main ai center · 2025',
+      'A ReAct-based conversational layer over a synthetic SQL schema.',
+    accent: 'warm',
   },
   {
-    id: 'newmind-rag',
-    title: 'hukuk alanı agentic rag analizi',
-    tag: 'agentic rag',
+    id: 'legal-rag',
+    title: 'Legal domain agentic RAG analysis',
     summary:
-      'knowledge graph + elasticsearch + qdrant bileşenlerinden oluşan hukuk domaininde bir agentic chatbotu inceledim; darboğazları tespit edip ajan davranışını daha güvenilir kılacak mimari iyileştirmeler önerdim.',
-    subtitle: 'newmind ai · maslak · 2025',
+      'Reviewed a knowledge-graph-backed chatbot and proposed architectural improvements.',
+    accent: 'mint',
   },
   {
-    id: 'tubitak-abr',
-    title: 'abr sinyallerinde wave tespiti (tübitak 1001)',
-    tag: 'research · signal processing',
+    id: 'abr-research',
+    title: 'ABR signal wave detection',
     summary:
-      'işitme beyin sapı yanıtlarında v. dalganın varlığını ve konumunu transformer tabanlı modellerle tespit ettim. vae ile sentetik abr üretip snik / itik / normal sınıflarında işitme kaybı türü sınıflandırması denedim.',
-    subtitle: 'medipol · prof. dr. bahadır kürşat güntürk · 2024→',
+      'Transformer-based models for detecting and locating the fifth latency in auditory brainstem responses.',
+    accent: 'accent',
   },
   {
-    id: 'bilgem-rag',
-    title: 'multi-agent rag sistemi (db + web ajanları)',
-    tag: 'rag',
+    id: 'multi-agent-rag',
+    title: 'Multi-agent RAG system',
     summary:
-      'chunking stratejilerini (fixed, semantic, late) ve farklı embedding modellerini karşılaştırdım. react kontrol ajanı altında veritabanı ve web-arama ajanlarıyla multi-query generation kullanarak halüsinasyonu düşürdüm; graphrag ile klasik rag\'i de kıyasladım.',
-    subtitle: 'tübitak bilgem · gebze · 2024',
+      'Compared chunking strategies and built a ReAct control agent coordinating database and web-search agents.',
+    accent: 'warm',
   },
   {
-    id: 'bilgem-cv',
-    title: 'meyve sınıflandırma + yolov5/yolov8 tespiti',
-    tag: 'computer vision',
+    id: 'vision-synthetic',
+    title: 'Fruit classification with synthetic data',
     summary:
-      'vgg16, resnet ve özel cnn modelleri ile meyve sınıflandırma yaptım. dall-e ile ürettiğim sentetik arka planları opencv ile gerçek meyve fotoğraflarıyla birleştirip, aynı veriyle yolov5 ve yolov8 üzerinden nesne tespiti değerlendirmesi yaptım.',
-    subtitle: 'tübitak bilgem · gebze · 2023',
+      'CNN training pipelines plus DALL-E-generated backgrounds for YOLO detection experiments.',
+    accent: 'mint',
   },
 ];

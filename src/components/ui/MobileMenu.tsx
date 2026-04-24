@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const links = [
-  { href: '/#calismalar', label: 'çalışmalar' },
-  { href: '/videolar', label: 'videolar' },
-  { href: '/yazilar', label: 'yazılar' },
-  { href: '/cv', label: 'cv' },
-  { href: '/iletisim', label: 'iletişim' },
+  { href: '/#work', label: 'work' },
+  { href: '/videos', label: 'videos' },
+  { href: '/writing', label: 'writing' },
+  { href: '/experience', label: 'experience' },
+  { href: '/contact', label: 'contact' },
 ];
 
 export default function MobileMenu() {
@@ -17,7 +17,7 @@ export default function MobileMenu() {
       {/* Hamburger button */}
       <button
         onClick={() => setOpen(!open)}
-        aria-label="Menü"
+        aria-label="Menu"
         className="md:hidden flex flex-col gap-1.5 p-1"
       >
         <span

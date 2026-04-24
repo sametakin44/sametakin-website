@@ -6,7 +6,7 @@ const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 function fmtDate(d: Date) {
-  return new Intl.DateTimeFormat('tr-TR', {
+  return new Intl.DateTimeFormat('en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -15,19 +15,22 @@ function fmtDate(d: Date) {
 ---
 
 <Layout
-  title="yazılar — samet akın"
-  description="samet akın'ın teknik yazıları: rag, llm, agentic ai"
+  title="Writing — Samet Akın"
+  description="Technical notes on RAG, LLMs, and agentic AI."
 >
   <section class="mx-auto max-w-[1200px] px-5 py-24">
-    <h1 class="text-4xl font-bold tracking-tight text-ink-primary">yazılar</h1>
-    <p class="text-ink-secondary mt-2 text-sm">teknik notlar, deneyler, öğrendiklerim</p>
+    <p class="text-xs font-mono text-ink-tertiary uppercase tracking-wider mb-2">
+      writing
+    </p>
+    <h1 class="text-3xl md:text-4xl font-semibold text-ink-primary">notes</h1>
+    <p class="text-ink-secondary mt-2 text-sm">technical notes, experiments, lessons learned</p>
 
-    <div id="taslak" class="mt-12">
+    <div id="draft" class="mt-12">
       {posts.length > 0 ? (
         <div class="divide-y divide-line-sub">
           {posts.map((post) => (
             <a
-              href={`/yazilar/${post.id}`}
+              href={`/writing/${post.id}`}
               class="group block py-5 hover:bg-bg-surface/60 -mx-4 px-4 rounded-lg transition-colors duration-200"
             >
               <div class="flex items-center gap-3">
@@ -36,7 +39,7 @@ function fmtDate(d: Date) {
                 </h2>
                 {post.data.draft && (
                   <span class="text-[10px] font-mono text-ink-tertiary border border-dashed border-line-em rounded px-1.5 py-0.5">
-                    taslak
+                    draft
                   </span>
                 )}
               </div>
@@ -55,7 +58,7 @@ function fmtDate(d: Date) {
           ))}
         </div>
       ) : (
-        <p class="text-ink-secondary text-sm mt-8">henüz yazı yok — yakında burada olacak.</p>
+        <p class="text-ink-secondary text-sm mt-8">nothing published yet — coming soon.</p>
       )}
     </div>
   </section>

@@ -1,5 +1,7 @@
 export const currently = {
-  prefix: 'havelsan main ai center\'da',
-  highlight: 'pdf → fine-tuning pipeline',
-  suffix: 'üzerine çalışıyorum',
+  active: true,
+  optionA: 'producing Turkish video tutorials on',
+  optionAEmphasis: 'deep learning and LLMs',
+  optionB: 'working on',
+  optionBEmphasis: '[update me]',
 };

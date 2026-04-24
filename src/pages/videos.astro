@@ -6,7 +6,7 @@ const videos = await getLatestVideos('UC-4rif4ktwvlvEflz-frkIw', 20);
 
 function fmtDate(d: string) {
   try {
-    return new Intl.DateTimeFormat('tr-TR', {
+    return new Intl.DateTimeFormat('en-US', {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -18,14 +18,21 @@ function fmtDate(d: string) {
 ---
 
 <Layout
-  title="videolar — samet akın"
-  description="samet akın'ın youtube'daki teknik videoları"
+  title="Videos — Samet Akın"
+  description="Turkish video tutorials on deep learning, LLMs, and AI."
 >
   <section class="mx-auto max-w-[1200px] px-5 py-24">
     <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4 mb-12">
       <div>
-        <h1 class="text-4xl font-bold tracking-tight text-ink-primary">videolar</h1>
-        <p class="text-ink-secondary mt-2 text-sm">derin öğrenme, llm ve yapay zeka üzerine türkçe içerikler</p>
+        <p class="text-xs font-mono text-ink-tertiary uppercase tracking-wider mb-2">
+          videos
+        </p>
+        <h1 class="text-3xl md:text-4xl font-semibold text-ink-primary">
+          turkish tutorials
+        </h1>
+        <p class="text-ink-secondary mt-2 text-sm">
+          Deep learning, LLMs, and AI — in Turkish.
+        </p>
       </div>
       <a
         href="https://youtube.com/@sametakin44"
@@ -33,7 +40,7 @@ function fmtDate(d: string) {
         rel="noopener noreferrer"
         class="inline-flex items-center gap-2 bg-accent text-white px-4 py-2 rounded-md text-sm font-mono hover:bg-accent-hover transition-colors duration-200"
       >
-        @sametakin44 · youtube'da takip et →
+        @sametakin44 · follow on YouTube →
       </a>
     </div>
 
@@ -68,7 +75,7 @@ function fmtDate(d: string) {
         ))}
       </div>
     ) : (
-      <p class="text-sm text-ink-secondary">videolar yüklenemedi.</p>
+      <p class="text-sm text-ink-secondary">videos failed to load.</p>
     )}
   </section>
 </Layout>

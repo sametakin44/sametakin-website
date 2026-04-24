@@ -1,0 +1,158 @@
+---
+import Layout from '../components/layout/Layout.astro';
+
+const experiences = [
+  {
+    start: 'Aug 2025',
+    end: 'Sep 2025',
+    role: 'Generative AI Intern',
+    org: 'Havelsan MAIN AI Center',
+    bullets: [
+      'Designed a multi-threaded pipeline for converting PDF documents into domain-specific fine-tuning datasets.',
+      'Built a full-stack application with FastAPI backend and Gradio frontend.',
+      'Led technical discussions and guided the intern team on implementation decisions.',
+      'Researched LLM benchmarking methodologies and fine-tuned language models on custom data.',
+      'Designed an experimental SQL schema and proposed an agentic workflow for a SQL chatbot.',
+    ],
+  },
+  {
+    start: 'May 2025',
+    end: 'May 2025',
+    role: 'Agentic AI Intern',
+    org: 'NewMind AI',
+    bullets: [
+      'Analyzed a legal-domain agentic chatbot built on knowledge graph, ElasticSearch, and Qdrant.',
+      'Identified performance bottlenecks and proposed architectural refinements.',
+      'Researched agentic memory strategies and prompt engineering improvements.',
+    ],
+  },
+  {
+    start: 'Jan 2024',
+    end: 'Present',
+    role: 'Content Producer',
+    org: 'YouTube · @sametakin44',
+    bullets: [
+      'Comprehensive Turkish video series on deep learning — fundamentals through RNN, LSTM, and Transformers.',
+      'Technical tutorials on LLMs, fine-tuning, RAG, and prompt engineering.',
+    ],
+  },
+  {
+    start: 'Oct 2024',
+    end: 'Mar 2025',
+    role: 'Undergraduate AI Researcher',
+    org: 'Istanbul Medipol University · TÜBİTAK 1001',
+    bullets: [
+      'TÜBİTAK 1001 Project: "Wave Detection and Frequency-Specific Hearing Threshold Estimation in ABR Signals Using Machine Learning" under Prof. Bahadır Kürşat Güntürk.',
+      'Trained transformer-based models for fifth-latency detection in ABR signals.',
+      'Generated synthetic ABR signals with VAE and evaluated with ROC AUC.',
+      'Built a multichannel transformer for hearing-loss classification (Normal / SNIK / ITIK).',
+    ],
+  },
+  {
+    start: 'Aug 2024',
+    end: 'Sep 2024',
+    role: 'Generative AI Intern',
+    org: 'TÜBİTAK BİLGEM',
+    bullets: [
+      'Built a Retrieval-Augmented Generation system with a vector embedding database.',
+      'Compared chunking strategies (fixed-size, semantic, late) and embedding models.',
+      'Implemented a ReAct control agent coordinating database and web-search agents.',
+      'Added multi-query generation to reduce hallucination; compared GraphRAG vs. traditional RAG.',
+    ],
+  },
+  {
+    start: 'Jul 2023',
+    end: 'Aug 2023',
+    role: 'Computer Vision Intern',
+    org: 'TÜBİTAK BİLGEM',
+    bullets: [
+      'Trained VGG16, ResNet, and custom CNNs for fruit classification.',
+      'Generated synthetic backgrounds with DALL-E and composited with OpenCV.',
+      'Performed object detection with YOLOv5 and YOLOv8.',
+    ],
+  },
+];
+---
+
+<Layout
+  title="Experience — Samet Akın"
+  description="Samet Akın's experience: AI engineering internships, research, and content work."
+>
+  <section class="mx-auto max-w-4xl px-5 py-24">
+    <header class="mb-12">
+      <p class="text-xs font-mono text-ink-tertiary uppercase tracking-wider mb-2">
+        experience
+      </p>
+      <h1 class="text-3xl md:text-4xl font-semibold text-ink-primary">
+        where I've worked
+      </h1>
+      <p class="text-sm text-ink-secondary mt-3 max-w-lg">
+        Internships, research, and content work. For the full document,
+        <a
+          href="/assets/cv/samet-akin-cv.pdf"
+          class="text-accent underline underline-offset-4 hover:text-accent-hover"
+        >
+          download my CV
+        </a>.
+      </p>
+    </header>
+
+    <ol class="relative border-l border-line-sub pl-8 space-y-10">
+      {experiences.map((exp) => (
+        <li class="relative">
+          <span class="absolute -left-[33px] top-1.5 w-2 h-2 rounded-full bg-accent"></span>
+          <div class="flex flex-wrap items-baseline gap-x-3 mb-1">
+            <time class="text-xs font-mono text-ink-tertiary uppercase tracking-wider">
+              {exp.start} — {exp.end}
+            </time>
+          </div>
+          <h3 class="text-lg font-medium text-ink-primary">{exp.role}</h3>
+          <p class="text-sm text-ink-secondary mb-3">{exp.org}</p>
+          <ul class="space-y-1.5 text-sm text-ink-secondary leading-relaxed">
+            {exp.bullets.map((b) => (
+              <li class="pl-4 relative">
+                <span class="absolute left-0 top-2 w-1 h-1 rounded-full bg-ink-tertiary"></span>
+                {b}
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ol>
+
+    <section class="mt-16">
+      <h2 class="text-sm font-mono text-ink-tertiary uppercase tracking-wider mb-4">
+        education
+      </h2>
+      <div class="space-y-4">
+        <div>
+          <p class="text-base font-medium text-ink-primary">
+            BSc in Computer Science, Istanbul Medipol University
+          </p>
+          <p class="text-sm text-ink-secondary">
+            2022 — Present · Full scholarship · GPA 3.84
+          </p>
+        </div>
+        <div>
+          <p class="text-base font-medium text-ink-primary">
+            Malatya Fethi Gemuhluoğlu Science High School
+          </p>
+          <p class="text-sm text-ink-secondary">
+            2017 — 2021 · Graduation grade 97.98
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-sm font-mono text-ink-tertiary uppercase tracking-wider mb-4">
+        certifications
+      </h2>
+      <ul class="space-y-2 text-sm text-ink-secondary">
+        <li>Evaluation and Light Customization of Large Language Models — NVIDIA (2025)</li>
+        <li>Machine Learning with Python — BTK Academy (2023)</li>
+        <li>Introduction to Information Technologies — BTK Academy (2022)</li>
+      </ul>
+    </section>
+  </section>
+</Layout>

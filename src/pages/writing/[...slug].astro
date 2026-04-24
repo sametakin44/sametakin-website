@@ -14,7 +14,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 function fmtDate(d: Date) {
-  return new Intl.DateTimeFormat('tr-TR', {
+  return new Intl.DateTimeFormat('en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -23,22 +23,22 @@ function fmtDate(d: Date) {
 ---
 
 <Layout
-  title={`${post.data.title} — samet akın`}
+  title={`${post.data.title} — Samet Akın`}
   description={post.data.description}
 >
   <article class="mx-auto max-w-2xl px-5 py-24">
     <a
-      href="/yazilar"
+      href="/writing"
       class="text-xs font-mono text-ink-tertiary hover:text-accent transition-colors duration-200"
     >
-      ← tüm yazılar
+      ← all writing
     </a>
 
     <header class="mt-8 mb-12">
       <div class="flex items-center gap-3">
         {post.data.draft && (
           <span class="text-[10px] font-mono text-ink-tertiary border border-dashed border-line-em rounded px-1.5 py-0.5">
-            taslak
+            draft
           </span>
         )}
         {post.data.readingTime && (

@@ -58,7 +58,7 @@ export default function HeroObject() {
     scene.add(inner);
 
     const positions: number[] = [];
-    for (let i = 0; i < 400; i++) {
+    for (let i = 0; i < 200; i++) {
       const r = 3 + Math.random() * 2;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
@@ -77,7 +77,7 @@ export default function HeroObject() {
       color: getAccent(),
       size: 0.025,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.4,
     });
     const points = new THREE.Points(pgeo, pmat);
     scene.add(points);
