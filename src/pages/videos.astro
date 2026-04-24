@@ -1,81 +1,74 @@
 ---
 import Layout from '../components/layout/Layout.astro';
-import { getLatestVideos } from '../lib/youtube';
+import YouTubeThumbnail from '../components/ui/YouTubeThumbnail.astro';
+import { tutorialPlaylists } from '../data/playlists';
+import { getPlaylist } from '../lib/youtube';
 
-const videos = await getLatestVideos('UC-4rif4ktwvlvEflz-frkIw', 20);
-
-function fmtDate(d: string) {
-  try {
-    return new Intl.DateTimeFormat('en-US', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }).format(new Date(d));
-  } catch {
-    return d;
-  }
-}
+const playlists = await Promise.all(
+  tutorialPlaylists.map(async (meta) => {
+    const data = await getPlaylist(meta.id);
+    return { meta, data };
+  }),
+);
 ---
 
 <Layout
   title="Videos — Samet Akın"
-  description="Turkish video tutorials on deep learning, LLMs, and AI."
+  description="Turkish tutorial playlists on deep learning and large language models."
 >
-  <section class="mx-auto max-w-[1200px] px-5 py-24">
-    <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4 mb-12">
-      <div>
-        <p class="text-xs font-mono text-ink-tertiary uppercase tracking-wider mb-2">
-          videos
-        </p>
-        <h1 class="text-3xl md:text-4xl font-semibold text-ink-primary">
-          turkish tutorials
-        </h1>
-        <p class="text-ink-secondary mt-2 text-sm">
-          Deep learning, LLMs, and AI — in Turkish.
-        </p>
-      </div>
-      <a
-        href="https://youtube.com/@sametakin44"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 bg-accent text-white px-4 py-2 rounded-md text-sm font-mono hover:bg-accent-hover transition-colors duration-200"
-      >
-        @sametakin44 · follow on YouTube →
-      </a>
-    </div>
+  <section class="mx-auto max-w-5xl px-5 py-16 md:py-20">
+    <header class="mb-12">
+      <p class="text-xs font-mono text-ink-tertiary uppercase tracking-wider mb-2">
+        videos
+      </p>
+      <h1 class="text-3xl md:text-4xl font-semibold text-ink-primary">
+        tutorial playlists
+      </h1>
+      <p class="text-sm text-ink-secondary mt-3 max-w-md">
+        Turkish-language video series on deep learning and LLMs.
+      </p>
+    </header>
 
-    {videos.length > 0 ? (
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {videos.map((v) => (
-          <a
-            href={v.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group rounded-xl border border-line-sub bg-bg-surface overflow-hidden hover:border-accent/40 transition-all duration-200"
-          >
-            <div class="aspect-video overflow-hidden bg-bg-elevated">
-              {v.thumbnail && (
-                <img
-                  src={v.thumbnail}
-                  alt={v.title}
-                  class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-200"
-                  loading="lazy"
-                />
-              )}
-            </div>
-            <div class="p-4">
-              <h3 class="text-sm text-ink-primary group-hover:text-accent transition-colors duration-200 line-clamp-2 leading-snug">
-                {v.title}
-              </h3>
-              <p class="text-xs font-mono text-ink-tertiary mt-2">
-                {fmtDate(v.published)}
-              </p>
-            </div>
-          </a>
-        ))}
-      </div>
-    ) : (
-      <p class="text-sm text-ink-secondary">videos failed to load.</p>
-    )}
+    {playlists.map(({ meta, data }) => {
+      if (!data) return null;
+      return (
+        <section class="mb-16">
+          <div class="flex items-baseline justify-between mb-6">
+            <h2 class="text-xl md:text-2xl font-medium text-ink-primary">
+              {meta.title}
+            </h2>
+            <a
+              href={data.playlistUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs font-mono text-ink-tertiary hover:text-accent"
+            >
+              playlist →
+            </a>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {data.videos.map((video) => (
+              <a
+                href={video.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group block"
+              >
+                <div class="aspect-video rounded-lg overflow-hidden bg-bg-elevated mb-3">
+                  <YouTubeThumbnail
+                    videoId={video.id}
+                    title={video.title}
+                    className="group-hover:scale-[1.02] transition duration-500"
+                  />
+                </div>
+                <h3 class="text-sm font-medium text-ink-primary group-hover:text-accent transition leading-snug line-clamp-2">
+                  {video.title}
+                </h3>
+              </a>
+            ))}
+          </div>
+        </section>
+      );
+    })}
   </section>
 </Layout>

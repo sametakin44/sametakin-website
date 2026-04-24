@@ -1,80 +1,89 @@
-# samet akın — portfolio
+# Samet Akın — Portfolio
 
-kişisel portföy sitesi. astro + react + tailwind css + framer motion + mdx.
+Personal portfolio site. Astro + React + Tailwind CSS + Framer Motion + MDX.
 
-## nasıl çalıştırılır
+## Getting started
 
 ```bash
 npm install
 npm run dev
 ```
 
-site `http://localhost:4321` adresinde açılır.
+The site serves at `http://localhost:4321`.
 
-## nasıl içerik eklenir
+## Content
 
-### yeni yazı
+### New post
 
-`src/content/blog/` klasörüne `.md` dosyası ekle:
+Add a `.md` file under `src/content/blog/`:
 
 ```md
 ---
-title: "yazı başlığı"
-description: "kısa açıklama"
+title: "Post title"
+description: "One-line summary."
 pubDate: 2026-05-01
-readingTime: "~8 dk okuma"
+readingTime: "~8 min read"
 tags: ["rag", "llm"]
 draft: false
 ---
 
-yazı içeriği buraya...
+Post body…
 ```
 
-`draft: true` yapılırsa "taslak" rozetiyle gözükür.
+Set `draft: true` to render with a "draft" badge.
 
-### cv güncelleme
+### CV PDF
 
-`public/assets/cv/samet-akin-cv.pdf` dosyasını değiştir. /cv sayfasındaki
-"pdf indir" butonu bu dosyaya yönlendirir.
+Replace `public/assets/cv/samet-akin-cv.pdf`. The /experience page links to it.
 
-### youtube channel id
+### Projects
 
-`src/lib/youtube.ts` dosyasında channel id'yi değiştir. build sırasında
-rss feed'den son videolar çekilir.
+Edit `src/data/projects.ts`. Each project: `id`, `title`, `summary`, `accent`.
 
-### projeler
+### YouTube tutorial playlists
 
-`src/data/projects.ts` dosyasında düzenle. her proje: id, title, tag,
-summary, subtitle alanlarına sahip.
+Edit `src/data/playlists.ts` to change playlist IDs, titles, descriptions, or accents. Video listings are fetched at build time from the RSS feed.
 
-### bio
-
-`src/data/bio.ts` dosyasında düzenle. hero bölümündeki bio metni ve
-tech stack buradan gelir.
-
-## yapı
+## Structure
 
 ```
 src/
   components/
-    ui/          buton, toggle, mobil menü
-    home/        hero, now panel, metrics, çalışmalar, videolar, yazılar
+    ui/          buttons, theme toggle, mobile menu, thumbnail
+    home/        hero, currently, featured work, tutorials, writing
     layout/      navbar, footer, layout wrapper
   content/
-    blog/        .md yazılar buraya
-  data/          projects.ts, bio.ts
+    blog/        markdown posts
+  data/          projects.ts, currently.ts, playlists.ts
   lib/           youtube.ts, cn.ts
-  pages/         index, yazilar, videolar, cv, iletisim
+  pages/         index, experience, contact, videos, writing
   styles/        global.css
 ```
 
-## deploy
+## Automatic content updates
 
-deploy Prompt 4 ile yapılacak. öncesinde kullanıcı lokalde gözden geçirir.
+### Blog posts
 
-### deploy öncesi yapılacaklar
+Push a new file to `src/content/blog/` and Cloudflare Pages rebuilds within 1–2 minutes.
 
-- [ ] `public/assets/cv/samet-akin-cv.pdf` dosyasını ekle
-- [ ] `public/assets/og/default.png` og görseli üret ve ekle
-- [ ] `astro.config.mjs` dosyasında `site` değerini gerçek url ile güncelle
-- [ ] github repo oluştur ve push et
+### YouTube videos
+
+YouTube playlist feeds are fetched at build time, so new videos appear only after a rebuild.
+
+1. **Automatic daily rebuild.** `.github/workflows/daily-rebuild.yml` fires the Cloudflare deploy hook every day at 03:00 UTC. To enable:
+   - In the Cloudflare Pages dashboard, open this project → *Settings* → *Builds & deployments* → *Deploy hooks* → *Add deploy hook* (e.g. name it `scheduled`, branch `master`).
+   - Copy the generated URL.
+   - On GitHub, go to the repo → *Settings* → *Secrets and variables* → *Actions* → *New repository secret*: name `CLOUDFLARE_DEPLOY_HOOK`, value = the URL.
+   - The workflow will then run daily. You can also trigger it manually from the *Actions* tab (*Daily Rebuild* → *Run workflow*).
+
+2. **Manual instant rebuild.** `curl -X POST <deploy-hook-url>` from anywhere, or run the workflow manually in the GitHub Actions tab.
+
+## Deploy
+
+Cloudflare Pages. Before deploy:
+
+- [ ] Drop `public/assets/cv/samet-akin-cv.pdf` in place.
+- [ ] Drop `public/assets/og/default.png` for the OG image.
+- [ ] Update `site` in `astro.config.mjs` to the real URL.
+- [ ] Create the GitHub repo and push.
+- [ ] Connect the repo to Cloudflare Pages and set `CLOUDFLARE_DEPLOY_HOOK` in GitHub secrets (see above).

@@ -3,17 +3,14 @@ import Layout from '../components/layout/Layout.astro';
 import Hero from '../components/home/Hero.astro';
 import Currently from '../components/home/Currently.astro';
 import FeaturedWork from '../components/home/FeaturedWork.astro';
-import Videos from '../components/home/Videos.astro';
+import Tutorials from '../components/home/Tutorials.astro';
 import Writing from '../components/home/Writing.astro';
-import { getLatestVideos } from '../lib/youtube';
-
-const videos = await getLatestVideos('UC-4rif4ktwvlvEflz-frkIw', 3);
 ---
 
 <Layout>
   <Hero />
   <Currently />
   <FeaturedWork />
-  <Videos videos={videos} />
+  <Tutorials />
   <Writing />
 </Layout>

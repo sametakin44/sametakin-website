@@ -17,9 +17,9 @@ export const projects: Project[] = [
   },
   {
     id: 'sql-agent',
-    title: 'Agentic SQL chatbot',
+    title: 'AI Development Platform ',
     summary:
-      'A ReAct-based conversational layer over a synthetic SQL schema.',
+      'A Multi-Agent platform for training AI models autonomously.',
     accent: 'warm',
   },
   {

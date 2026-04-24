@@ -1,29 +1,62 @@
 import { XMLParser } from 'fast-xml-parser';
 
+export interface YouTubeThumbnailSet {
+  high: string;
+  medium: string;
+  low: string;
+}
+
 export interface YouTubeVideo {
   id: string;
   title: string;
   published: string;
-  thumbnail: string;
+  thumbnail: YouTubeThumbnailSet;
   link: string;
 }
+
+export interface PlaylistVideo {
+  id: string;
+  title: string;
+  published: string;
+  thumbnail: string;
+  thumbnailFallback: string;
+  link: string;
+}
+
+export interface PlaylistData {
+  id: string;
+  title: string;
+  author?: string;
+  videos: PlaylistVideo[];
+  videoCount: number;
+  latestVideo: PlaylistVideo | null;
+  playlistUrl: string;
+}
+
+const emptyThumb = (): YouTubeThumbnailSet => ({ high: '', medium: '', low: '' });
 
 const FALLBACK_VIDEOS: YouTubeVideo[] = [
   {
     id: 'fallback-dl',
-    title: 'derin öğrenme serisi · rnn, lstm, transformers',
+    title: 'Deep learning series · RNN, LSTM, Transformers',
     published: '2025-01-01',
-    thumbnail: '',
-    link: 'https://www.youtube.com/@sametakin',
+    thumbnail: emptyThumb(),
+    link: 'https://www.youtube.com/@sametakin44',
   },
   {
     id: 'fallback-llm',
-    title: 'llm serisi · fine-tuning, rag, prompt engineering',
+    title: 'LLM series · fine-tuning, RAG, prompt engineering',
     published: '2025-01-01',
-    thumbnail: '',
-    link: 'https://www.youtube.com/@sametakin',
+    thumbnail: emptyThumb(),
+    link: 'https://www.youtube.com/@sametakin44',
   },
 ];
+
+const thumbsFor = (videoId: string): YouTubeThumbnailSet => ({
+  high: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+  medium: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+  low: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
+});
 
 export async function getLatestVideos(
   channelId: string,
@@ -49,7 +82,7 @@ export async function getLatestVideos(
         id: videoId,
         title: entry.title,
         published: entry.published,
-        thumbnail: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
+        thumbnail: thumbsFor(videoId),
         link:
           entry.link?.['@_href'] ??
           `https://www.youtube.com/watch?v=${videoId}`,
@@ -57,5 +90,57 @@ export async function getLatestVideos(
     });
   } catch {
     return FALLBACK_VIDEOS;
+  }
+}
+
+export async function getPlaylist(
+  playlistId: string,
+): Promise<PlaylistData | null> {
+  const url = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Playlist fetch failed');
+    const xml = await res.text();
+    const parser = new XMLParser({
+      ignoreAttributes: false,
+      attributeNamePrefix: '@_',
+    });
+    const data = parser.parse(xml);
+    const feed = data.feed;
+    if (!feed) return null;
+
+    const rawEntries = feed.entry;
+    const entries = Array.isArray(rawEntries)
+      ? rawEntries
+      : rawEntries
+        ? [rawEntries]
+        : [];
+
+    const videos: PlaylistVideo[] = entries
+      .filter(Boolean)
+      .map((entry: any) => {
+        const videoId = entry['yt:videoId'];
+        return {
+          id: videoId,
+          title: entry.title,
+          published: entry.published,
+          thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+          thumbnailFallback: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          link: `https://www.youtube.com/watch?v=${videoId}&list=${playlistId}`,
+        };
+      });
+
+    return {
+      id: playlistId,
+      title: feed.title,
+      author: feed.author?.name,
+      videos,
+      videoCount: videos.length,
+      latestVideo: videos[0] ?? null,
+      playlistUrl: `https://www.youtube.com/playlist?list=${playlistId}`,
+    };
+  } catch (err) {
+    console.error('getPlaylist error:', err);
+    return null;
   }
 }

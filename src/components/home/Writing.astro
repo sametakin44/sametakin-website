@@ -1,16 +1,16 @@
 ---
 const drafts = [
   {
-    title: 'Chunking strategies in RAG: fixed, semantic, and late',
-    desc: 'How splitting the same document three different ways affects retrieval quality.',
-    reading: '~8 min read',
-    href: '/writing#draft',
+    title: 'The AI void in public services: Beyond e-Devlet and e-Nabız',
+    desc: 'How bloated bureaucracy and painfully slow judicial processes persist while scalable, autonomous AI solutions are ignored.',
+    reading: '~1 min read',
+    href: '/writing/ai-void-public-services',
   },
   {
-    title: 'Multi-query generation for agentic systems',
-    desc: "How we diversify a ReAct agent's queries, and what it does to the final answer.",
-    reading: '~10 min read',
-    href: '/writing#draft',
+    title: 'Artificial agendas vs. Artificial Intelligence in parliament',
+    desc: 'While the tech ecosystem builds autonomous futures, lawmakers debate distractions. A look at the widening gap between state priorities and tech reality.',
+    reading: '~1 min read',
+    href: '/writing/artificial-agendas-vs-ai',
   },
 ];
 ---
@@ -18,19 +18,16 @@ const drafts = [
 <section id="writing" class="mx-auto max-w-[1200px] px-5 mt-24">
   <div class="mb-8">
     <h2 class="font-mono text-sm text-ink-secondary lowercase">writing</h2>
-    <p class="text-sm text-ink-tertiary mt-1">a few notes, coming soon</p>
+    <p class="text-sm text-ink-tertiary mt-1">a few notes</p>
   </div>
 
   <div class="grid md:grid-cols-2 gap-5">
     {drafts.map((d) => (
       <a
         href={d.href}
-        class="group rounded-xl border border-dashed border-line-em bg-bg-surface/60 p-6 hover:border-accent/40 transition-all duration-200"
+        class="group rounded-xl border border-line-sub bg-bg-surface p-6 hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-200"
       >
         <div class="flex items-center gap-2 mb-3">
-          <span class="text-[10px] font-mono text-ink-tertiary border border-line-sub rounded px-1.5 py-0.5">
-            draft
-          </span>
           <span class="text-[10px] font-mono text-ink-tertiary">{d.reading}</span>
         </div>
         <h3 class="text-sm text-ink-primary group-hover:text-accent transition-colors duration-200 leading-snug">
