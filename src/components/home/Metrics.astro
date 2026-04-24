@@ -1,0 +1,23 @@
+---
+const metrics = [
+  { value: '5', label: 'ai stajı/araştırma deneyimi' },
+  { value: '3.84', label: 'gpa · medipol cs (tam burslu)' },
+  { value: '2', label: 'youtube teknik serisi (deep learning + llm)' },
+  { value: '2024→', label: 'tübitak 1001 araştırmacısı' },
+];
+---
+
+<section class="mx-auto max-w-[1200px] px-5 mt-16">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    {metrics.map((m) => (
+      <div class="group rounded-xl border border-ink-800 hover:border-ink-700 bg-ink-900/40 p-6 transition-colors duration-200">
+        <div class="text-3xl font-mono font-semibold text-ink-100 group-hover:text-accent transition-colors duration-200">
+          {m.value}
+        </div>
+        <div class="text-xs text-ink-400 mt-2 lowercase leading-relaxed">
+          {m.label}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

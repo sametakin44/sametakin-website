@@ -1,9 +1,13 @@
 ---
 import Layout from '../components/layout/Layout.astro';
+import Hero from '../components/home/Hero.astro';
+import Metrics from '../components/home/Metrics.astro';
+import { getLatestVideos } from '../lib/youtube';
+
+const videos = await getLatestVideos('UC-4rif4ktwvlvEflz-frkIw', 3);
 ---
 
 <Layout>
-  <div class="mx-auto max-w-[1200px] px-5 py-20">
-    <h1 class="text-3xl font-mono">iskelet hazır</h1>
-  </div>
+  <Hero videos={videos} />
+  <Metrics />
 </Layout>

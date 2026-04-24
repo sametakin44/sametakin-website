@@ -5,10 +5,10 @@
 
 /* ── CSS Variables ── */
 :root {
-  --bg: #0a0a0b;
-  --fg: #ededf0;
-  --muted: #8a8a93;
-  --border: #17171b;
+  --bg: #fafafa;
+  --fg: #0a0a0b;
+  --muted: #6b6b73;
+  --border: #e5e5ea;
   --accent: #534AB7;
 }
 
@@ -50,7 +50,7 @@ h1, h2, h3 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #17171b;
+  background: var(--border);
 }
 
 ::-webkit-scrollbar-thumb {
