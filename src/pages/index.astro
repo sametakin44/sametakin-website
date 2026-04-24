@@ -2,6 +2,9 @@
 import Layout from '../components/layout/Layout.astro';
 import Hero from '../components/home/Hero.astro';
 import Metrics from '../components/home/Metrics.astro';
+import FeaturedWork from '../components/home/FeaturedWork.astro';
+import Videos from '../components/home/Videos.astro';
+import Writing from '../components/home/Writing.astro';
 import { getLatestVideos } from '../lib/youtube';
 
 const videos = await getLatestVideos('UC-4rif4ktwvlvEflz-frkIw', 3);
@@ -10,4 +13,7 @@ const videos = await getLatestVideos('UC-4rif4ktwvlvEflz-frkIw', 3);
 <Layout>
   <Hero videos={videos} />
   <Metrics />
+  <FeaturedWork />
+  <Videos videos={videos} />
+  <Writing />
 </Layout>

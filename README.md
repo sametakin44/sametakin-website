@@ -1,43 +1,80 @@
-# Astro Starter Kit: Minimal
+# samet akın — portfolio
 
-```sh
-npm create astro@latest -- --template minimal
+kişisel portföy sitesi. astro + react + tailwind css + framer motion + mdx.
+
+## nasıl çalıştırılır
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+site `http://localhost:4321` adresinde açılır.
 
-## 🚀 Project Structure
+## nasıl içerik eklenir
 
-Inside of your Astro project, you'll see the following folders and files:
+### yeni yazı
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+`src/content/blog/` klasörüne `.md` dosyası ekle:
+
+```md
+---
+title: "yazı başlığı"
+description: "kısa açıklama"
+pubDate: 2026-05-01
+readingTime: "~8 dk okuma"
+tags: ["rag", "llm"]
+draft: false
+---
+
+yazı içeriği buraya...
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+`draft: true` yapılırsa "taslak" rozetiyle gözükür.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### cv güncelleme
 
-Any static assets, like images, can be placed in the `public/` directory.
+`public/assets/cv/samet-akin-cv.pdf` dosyasını değiştir. /cv sayfasındaki
+"pdf indir" butonu bu dosyaya yönlendirir.
 
-## 🧞 Commands
+### youtube channel id
 
-All commands are run from the root of the project, from a terminal:
+`src/lib/youtube.ts` dosyasında channel id'yi değiştir. build sırasında
+rss feed'den son videolar çekilir.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### projeler
 
-## 👀 Want to learn more?
+`src/data/projects.ts` dosyasında düzenle. her proje: id, title, tag,
+summary, subtitle alanlarına sahip.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### bio
+
+`src/data/bio.ts` dosyasında düzenle. hero bölümündeki bio metni ve
+tech stack buradan gelir.
+
+## yapı
+
+```
+src/
+  components/
+    ui/          buton, toggle, mobil menü
+    home/        hero, now panel, metrics, çalışmalar, videolar, yazılar
+    layout/      navbar, footer, layout wrapper
+  content/
+    blog/        .md yazılar buraya
+  data/          projects.ts, bio.ts
+  lib/           youtube.ts, cn.ts
+  pages/         index, yazilar, videolar, cv, iletisim
+  styles/        global.css
+```
+
+## deploy
+
+deploy Prompt 4 ile yapılacak. öncesinde kullanıcı lokalde gözden geçirir.
+
+### deploy öncesi yapılacaklar
+
+- [ ] `public/assets/cv/samet-akin-cv.pdf` dosyasını ekle
+- [ ] `public/assets/og/default.png` og görseli üret ve ekle
+- [ ] `astro.config.mjs` dosyasında `site` değerini gerçek url ile güncelle
+- [ ] github repo oluştur ve push et

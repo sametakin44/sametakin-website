@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const links = [
   { href: '/#calismalar', label: 'çalışmalar' },
-  { href: '/#videolar', label: 'videolar' },
-  { href: '/blog', label: 'yazılar' },
+  { href: '/videolar', label: 'videolar' },
+  { href: '/yazilar', label: 'yazılar' },
   { href: '/cv', label: 'cv' },
-  { href: '/#iletisim', label: 'iletişim' },
+  { href: '/iletisim', label: 'iletişim' },
 ];
 
 export default function MobileMenu() {

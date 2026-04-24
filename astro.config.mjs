@@ -6,9 +6,9 @@ import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
+// deploy öncesi: 'https://sametakin-portfolio.pages.dev' ya da özel domain
 export default defineConfig({
-  site: 'https://sametakin.com',
+  site: 'http://localhost:4321',
   integrations: [react(), mdx(), sitemap()],
 
   vite: {

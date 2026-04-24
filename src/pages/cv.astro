@@ -1,0 +1,120 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import { projects } from '../data/projects';
+
+const experience = projects.map((p) => ({
+  title: p.title,
+  subtitle: p.subtitle,
+  tag: p.tag,
+  summary: p.summary,
+}));
+
+const education = [
+  {
+    school: 'istanbul medipol üniversitesi',
+    degree: 'bilgisayar bilimleri (tam burslu)',
+    years: '2022 →',
+    note: 'gpa: 3.84',
+  },
+  {
+    school: 'malatya fethi gemuhluoğlu fen lisesi',
+    degree: 'fen bilimleri',
+    years: '2017 – 2021',
+    note: '',
+  },
+];
+
+const skills = [
+  'PyTorch', 'LangChain', 'LangGraph', 'RAG', 'Transformers', 'FastAPI',
+  'Qdrant', 'Python', 'C', 'Java', 'Pandas', 'NumPy', 'Scikit-learn',
+  'CNN', 'RNN', 'LSTM', 'LLMs', 'Prompt Engineering',
+];
+
+const certs = [
+  { name: 'NVIDIA — Evaluating LLM Applications', year: '2025' },
+  { name: 'BTK Akademi — Makine Öğrenmesi', year: '2023' },
+  { name: 'BTK Akademi — Bilgi Teknolojileri', year: '2022' },
+];
+---
+
+<Layout
+  title="cv — samet akın"
+  description="samet akın'ın özgeçmişi — ai engineer & researcher"
+>
+  <section class="mx-auto max-w-[1200px] px-5 py-24">
+    <div class="grid md:grid-cols-[2fr_1fr] gap-12">
+      {/* ── Sol: özgeçmiş ── */}
+      <div>
+        <h1 class="text-4xl font-bold tracking-tight">samet akın</h1>
+        <p class="text-ink-400 mt-1 font-mono text-sm">ai engineer · researcher · istanbul</p>
+
+        {/* Deneyim */}
+        <h2 class="text-sm font-mono text-ink-300 mt-12 mb-6">deneyim</h2>
+        <div class="space-y-6">
+          {experience.map((e) => (
+            <div class="border-l-2 border-ink-800 pl-5">
+              <span class="text-[10px] font-mono text-accent/80">{e.tag}</span>
+              <h3 class="text-ink-100 font-semibold mt-1">{e.title}</h3>
+              <p class="text-sm text-ink-400 mt-1 leading-relaxed">{e.summary}</p>
+              <p class="text-xs font-mono text-ink-400/70 mt-2">{e.subtitle}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Eğitim */}
+        <h2 class="text-sm font-mono text-ink-300 mt-12 mb-6">eğitim</h2>
+        <div class="space-y-4">
+          {education.map((e) => (
+            <div class="border-l-2 border-ink-800 pl-5">
+              <h3 class="text-ink-100 font-semibold">{e.school}</h3>
+              <p class="text-sm text-ink-400">{e.degree}</p>
+              <div class="flex items-center gap-3 mt-1">
+                <span class="text-xs font-mono text-ink-400/70">{e.years}</span>
+                {e.note && (
+                  <span class="text-xs font-mono text-accent/80">{e.note}</span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Skill'ler */}
+        <h2 class="text-sm font-mono text-ink-300 mt-12 mb-6">skill'ler</h2>
+        <div class="flex flex-wrap gap-2">
+          {skills.map((s) => (
+            <span class="rounded-full px-3 py-1 text-xs font-mono border border-ink-700 text-ink-300">
+              {s}
+            </span>
+          ))}
+        </div>
+
+        {/* Sertifikalar */}
+        <h2 class="text-sm font-mono text-ink-300 mt-12 mb-6">sertifikalar</h2>
+        <div class="space-y-3">
+          {certs.map((c) => (
+            <div class="flex items-center justify-between border-l-2 border-ink-800 pl-5">
+              <span class="text-sm text-ink-100">{c.name}</span>
+              <span class="text-xs font-mono text-ink-400/70">{c.year}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Sağ: sticky kart ── */}
+      <div>
+        <div class="sticky top-24 rounded-xl border border-ink-800 bg-ink-900/40 p-6">
+          <a
+            href="/assets/cv/samet-akin-cv.pdf"
+            target="_blank"
+            class="block w-full text-center bg-accent text-white px-5 py-3 rounded-md text-sm font-medium hover:bg-accent-hover transition-colors duration-200"
+          >
+            pdf indir
+          </a>
+          <p class="text-xs font-mono text-ink-400 text-center mt-3">
+            son güncelleme: nisan 2026
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
