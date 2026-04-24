@@ -18,9 +18,12 @@ export interface PlaylistVideo {
   id: string;
   title: string;
   published: string;
+  publishedDate: Date;
   thumbnail: string;
   thumbnailFallback: string;
   link: string;
+  verifiedThumbnail?: string | null;
+  hasThumbnail?: boolean;
 }
 
 export interface PlaylistData {
@@ -124,11 +127,16 @@ export async function getPlaylist(
           id: videoId,
           title: entry.title,
           published: entry.published,
+          publishedDate: new Date(entry.published),
           thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
           thumbnailFallback: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
           link: `https://www.youtube.com/watch?v=${videoId}&list=${playlistId}`,
         };
       });
+
+    videos.sort(
+      (a, b) => b.publishedDate.getTime() - a.publishedDate.getTime(),
+    );
 
     return {
       id: playlistId,
@@ -143,4 +151,54 @@ export async function getPlaylist(
     console.error('getPlaylist error:', err);
     return null;
   }
+}
+
+// YouTube'un "bu boyut yok" fallback (gri) image'ı için yaklaşık boyut.
+// HEAD content-length ile ayırt ediyoruz; tam 1097 olmayabilir, o yüzden
+// "çok küçük" heuristic ile güvenle ayıkla.
+const GRAY_PLACEHOLDER_MAX_BYTES = 5000;
+
+async function pickVerifiedThumb(videoId: string): Promise<string | null> {
+  const candidates = [
+    `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+    `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`,
+    `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+  ];
+  for (const url of candidates) {
+    try {
+      const r = await fetch(url, { method: 'HEAD' });
+      if (!r.ok) continue;
+      const len = Number(r.headers.get('content-length') ?? 0);
+      if (!len || len > GRAY_PLACEHOLDER_MAX_BYTES) {
+        return url;
+      }
+    } catch {
+      // try next
+    }
+  }
+  return null;
+}
+
+export async function getPlaylistWithVerifiedThumbs(
+  playlistId: string,
+): Promise<PlaylistData | null> {
+  const playlist = await getPlaylist(playlistId);
+  if (!playlist) return null;
+
+  const verifiedVideos: PlaylistVideo[] = await Promise.all(
+    playlist.videos.map(async (v) => {
+      const verified = await pickVerifiedThumb(v.id);
+      return {
+        ...v,
+        verifiedThumbnail: verified,
+        hasThumbnail: Boolean(verified),
+      };
+    }),
+  );
+
+  return {
+    ...playlist,
+    videos: verifiedVideos,
+    latestVideo: verifiedVideos[0] ?? null,
+  };
 }

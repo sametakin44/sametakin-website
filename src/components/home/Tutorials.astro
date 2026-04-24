@@ -1,11 +1,11 @@
 ---
 import { tutorialPlaylists, type PlaylistAccent } from '../../data/playlists';
-import { getPlaylist } from '../../lib/youtube';
-import YouTubeThumbnail from '../ui/YouTubeThumbnail.astro';
+import { getPlaylistWithVerifiedThumbs } from '../../lib/youtube';
+import YouTubeThumbnail from '../ui/YouTubeThumbnail';
 
 const playlists = await Promise.all(
   tutorialPlaylists.map(async (meta) => {
-    const data = await getPlaylist(meta.id);
+    const data = await getPlaylistWithVerifiedThumbs(meta.id);
     return { meta, data };
   }),
 );
@@ -46,6 +46,7 @@ const hoverTitleClass: Record<PlaylistAccent, string> = {
     {playlists.map(({ meta, data }) => {
       if (!data) return null;
       const count = meta.manualVideoCount ?? data.videoCount;
+      const latest = data.latestVideo;
       return (
         <a
           href={data.playlistUrl}
@@ -53,15 +54,18 @@ const hoverTitleClass: Record<PlaylistAccent, string> = {
           rel="noopener noreferrer"
           class={`group relative rounded-2xl border ${borderClass[meta.accent]} bg-bg-surface overflow-hidden transition hover:-translate-y-0.5 hover:shadow-xl`}
         >
-          <div class="aspect-video relative overflow-hidden bg-bg-elevated">
-            {data.latestVideo && (
+          <div class="aspect-video relative overflow-hidden bg-bg-elevated isolate">
+            {latest && (
               <YouTubeThumbnail
-                videoId={data.latestVideo.id}
-                title={data.latestVideo.title}
+                videoId={latest.id}
+                title={latest.title}
+                verifiedUrl={latest.verifiedThumbnail ?? null}
+                hasThumbnail={latest.hasThumbnail ?? false}
                 className="group-hover:scale-[1.03] transition duration-500"
+                client:visible
               />
             )}
-            <div class="absolute inset-0 bg-gradient-to-t from-bg-base/95 via-bg-base/30 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-bg-base/95 via-bg-base/30 to-transparent pointer-events-none"></div>
             <div class="absolute top-4 left-4 flex items-center gap-2">
               <span class={`text-[10px] font-mono uppercase tracking-[0.2em] ${textAccentClass[meta.accent]} bg-bg-base/80 backdrop-blur-sm px-2.5 py-1 rounded-full border border-line-hair`}>
                 series · {count} videos
@@ -81,13 +85,13 @@ const hoverTitleClass: Record<PlaylistAccent, string> = {
             <p class="text-sm text-ink-secondary leading-relaxed">
               {meta.description}
             </p>
-            {data.latestVideo && (
+            {latest && (
               <div class="mt-4 pt-4 border-t border-line-hair flex items-center justify-between text-xs font-mono gap-3">
                 <span class="text-ink-tertiary uppercase tracking-wider shrink-0">
                   latest
                 </span>
                 <span class="text-ink-secondary truncate">
-                  {data.latestVideo.title}
+                  {latest.title}
                 </span>
               </div>
             )}

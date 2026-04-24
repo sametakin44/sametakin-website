@@ -1,12 +1,12 @@
 ---
 import Layout from '../components/layout/Layout.astro';
-import YouTubeThumbnail from '../components/ui/YouTubeThumbnail.astro';
+import YouTubeThumbnail from '../components/ui/YouTubeThumbnail';
 import { tutorialPlaylists } from '../data/playlists';
-import { getPlaylist } from '../lib/youtube';
+import { getPlaylistWithVerifiedThumbs } from '../lib/youtube';
 
 const playlists = await Promise.all(
   tutorialPlaylists.map(async (meta) => {
-    const data = await getPlaylist(meta.id);
+    const data = await getPlaylistWithVerifiedThumbs(meta.id);
     return { meta, data };
   }),
 );
@@ -54,11 +54,14 @@ const playlists = await Promise.all(
                 rel="noopener noreferrer"
                 class="group block"
               >
-                <div class="aspect-video rounded-lg overflow-hidden bg-bg-elevated mb-3">
+                <div class="aspect-video rounded-lg overflow-hidden bg-bg-elevated mb-3 isolate">
                   <YouTubeThumbnail
                     videoId={video.id}
                     title={video.title}
+                    verifiedUrl={video.verifiedThumbnail ?? null}
+                    hasThumbnail={video.hasThumbnail ?? false}
                     className="group-hover:scale-[1.02] transition duration-500"
+                    client:visible
                   />
                 </div>
                 <h3 class="text-sm font-medium text-ink-primary group-hover:text-accent transition leading-snug line-clamp-2">
