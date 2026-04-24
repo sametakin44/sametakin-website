@@ -6,9 +6,9 @@ import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
-// deploy öncesi: 'https://sametakin-portfolio.pages.dev' ya da özel domain
+// Custom domain sonradan bağlanınca bu değeri gerçek URL ile değiştir.
 export default defineConfig({
-  site: 'http://localhost:4321',
+  site: 'https://sametakin-portfolio.pages.dev',
   integrations: [react(), mdx(), sitemap()],
 
   vite: {

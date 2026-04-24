@@ -61,6 +61,12 @@ const thumbsFor = (videoId: string): YouTubeThumbnailSet => ({
   low: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
 });
 
+const FETCH_TIMEOUT_MS = 10_000;
+
+function withTimeout(ms = FETCH_TIMEOUT_MS) {
+  return { signal: AbortSignal.timeout(ms) };
+}
+
 export async function getLatestVideos(
   channelId: string,
   limit = 3,
@@ -68,6 +74,7 @@ export async function getLatestVideos(
   try {
     const res = await fetch(
       `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`,
+      withTimeout(),
     );
     if (!res.ok) return FALLBACK_VIDEOS;
 
@@ -101,7 +108,7 @@ export async function getPlaylist(
 ): Promise<PlaylistData | null> {
   const url = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, withTimeout());
     if (!res.ok) throw new Error('Playlist fetch failed');
     const xml = await res.text();
     const parser = new XMLParser({
@@ -166,7 +173,10 @@ async function pickVerifiedThumb(videoId: string): Promise<string | null> {
   ];
   for (const url of candidates) {
     try {
-      const r = await fetch(url, { method: 'HEAD' });
+      const r = await fetch(url, {
+        method: 'HEAD',
+        signal: AbortSignal.timeout(5_000),
+      });
       if (!r.ok) continue;
       const len = Number(r.headers.get('content-length') ?? 0);
       if (!len || len > GRAY_PLACEHOLDER_MAX_BYTES) {
