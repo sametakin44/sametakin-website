@@ -17,26 +17,26 @@ const drafts = [
 
 <section id="yazilar" class="mx-auto max-w-[1200px] px-5 mt-24">
   <div class="mb-8">
-    <h2 class="font-mono text-sm text-ink-300">yazılar</h2>
-    <p class="text-sm text-ink-400 mt-1">henüz az, ama başlayalım</p>
+    <h2 class="font-mono text-sm text-ink-secondary">yazılar</h2>
+    <p class="text-sm text-ink-tertiary mt-1">henüz az, ama başlayalım</p>
   </div>
 
   <div class="grid md:grid-cols-2 gap-5">
     {drafts.map((d) => (
       <a
         href={d.href}
-        class="group rounded-xl border border-dashed border-ink-700 bg-ink-900/20 p-6 hover:border-accent/40 transition-all duration-200"
+        class="group rounded-xl border border-dashed border-line-em bg-bg-surface/60 p-6 hover:border-accent/40 transition-all duration-200"
       >
         <div class="flex items-center gap-2 mb-3">
-          <span class="text-[10px] font-mono text-ink-400 border border-ink-700 rounded px-1.5 py-0.5">
+          <span class="text-[10px] font-mono text-ink-tertiary border border-line-sub rounded px-1.5 py-0.5">
             taslak
           </span>
-          <span class="text-[10px] font-mono text-ink-400">{d.reading}</span>
+          <span class="text-[10px] font-mono text-ink-tertiary">{d.reading}</span>
         </div>
-        <h3 class="text-sm text-ink-100 group-hover:text-accent transition-colors duration-200 leading-snug">
+        <h3 class="text-sm text-ink-primary group-hover:text-accent transition-colors duration-200 leading-snug">
           {d.title}
         </h3>
-        <p class="text-xs text-ink-400 mt-2 leading-relaxed">{d.desc}</p>
+        <p class="text-xs text-ink-secondary mt-2 leading-relaxed">{d.desc}</p>
       </a>
     ))}
   </div>

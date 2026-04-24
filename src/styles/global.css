@@ -3,21 +3,54 @@
 @config "../../tailwind.config.mjs";
 @plugin "@tailwindcss/typography";
 
-/* ── CSS Variables ── */
+/* ── Light (default) ── */
 :root {
-  --bg: #fafafa;
-  --fg: #0a0a0b;
-  --muted: #6b6b73;
-  --border: #e5e5ea;
+  --bg-base: #F8F6F0;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #FFFFFF;
+  --bg-glass: rgba(248, 246, 240, 0.78);
+
+  --border-hairline: rgba(26, 24, 37, 0.08);
+  --border-subtle: rgba(26, 24, 37, 0.14);
+  --border-emphasis: rgba(83, 74, 183, 0.3);
+
+  --text-primary: #1A1825;
+  --text-secondary: #5D5B72;
+  --text-tertiary: #8B8999;
+
   --accent: #534AB7;
+  --accent-hover: #6158d1;
+  --accent-muted: #7F77DD;
+  --accent-deep: #26215C;
+
+  --warm: #C96A45;
+  --mint: #0F6E56;
+  --status: #1D9E75;
 }
 
+/* ── Dark ── */
 .dark {
-  --bg: #0a0a0b;
-  --fg: #ededf0;
-  --muted: #8a8a93;
-  --border: #17171b;
-  --accent: #534AB7;
+  --bg-base: #0A0812;
+  --bg-surface: #14121D;
+  --bg-elevated: #1C1A28;
+  --bg-glass: rgba(20, 18, 29, 0.72);
+
+  --border-hairline: rgba(237, 237, 240, 0.06);
+  --border-subtle: rgba(237, 237, 240, 0.1);
+  --border-emphasis: rgba(139, 127, 255, 0.3);
+
+  --text-primary: #EDEDF0;
+  --text-secondary: #9B99B3;
+  --text-tertiary: #62617A;
+
+  --accent: #8B7FFF;
+  --accent-hover: #A298FF;
+  --accent-muted: #5A52B5;
+  --accent-deep: #26215C;
+
+  --warm: #E8A87C;
+  --mint: #5DCAA5;
+  --status: #5DCAA5;
 }
 
 /* ── Base ── */
@@ -26,8 +59,8 @@ html {
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--fg);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -40,8 +73,8 @@ h1, h2, h3 {
 
 /* ── Selection ── */
 ::selection {
-  background-color: #534AB7;
-  color: #ededf0;
+  background-color: var(--accent);
+  color: #ffffff;
 }
 
 /* ── Scrollbar ── */
@@ -50,14 +83,14 @@ h1, h2, h3 {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--border);
+  background: var(--border-hairline);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #534AB7;
+  background: var(--accent);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6158d1;
+  background: var(--accent-hover);
 }

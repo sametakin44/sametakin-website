@@ -22,10 +22,10 @@ function fmtDate(d: string) {
 
 <section id="videolar" class="mx-auto max-w-[1200px] px-5 mt-24">
   <div class="flex items-baseline justify-between mb-8">
-    <h2 class="font-mono text-sm text-ink-300">son videolar</h2>
+    <h2 class="font-mono text-sm text-ink-secondary">son videolar</h2>
     <a
       href="/videolar"
-      class="text-xs font-mono text-ink-400 hover:text-accent transition-colors duration-200"
+      class="text-xs font-mono text-ink-tertiary hover:text-accent transition-colors duration-200"
     >
       hepsi →
     </a>
@@ -38,9 +38,9 @@ function fmtDate(d: string) {
           href={v.link}
           target="_blank"
           rel="noopener noreferrer"
-          class="group rounded-xl border border-ink-800 bg-ink-900/40 overflow-hidden hover:border-accent/40 transition-all duration-200"
+          class="group rounded-xl border border-line-sub bg-bg-surface overflow-hidden hover:border-accent/40 transition-all duration-200"
         >
-          <div class="aspect-video overflow-hidden bg-ink-800">
+          <div class="aspect-video overflow-hidden bg-bg-elevated">
             {v.thumbnail && (
               <img
                 src={v.thumbnail}
@@ -51,10 +51,10 @@ function fmtDate(d: string) {
             )}
           </div>
           <div class="p-4">
-            <h3 class="text-sm text-ink-100 group-hover:text-accent transition-colors duration-200 line-clamp-2 leading-snug">
+            <h3 class="text-sm text-ink-primary group-hover:text-accent transition-colors duration-200 line-clamp-2 leading-snug">
               {v.title}
             </h3>
-            <p class="text-xs font-mono text-ink-400 mt-2">
+            <p class="text-xs font-mono text-ink-tertiary mt-2">
               {fmtDate(v.published)}
             </p>
           </div>
@@ -62,6 +62,6 @@ function fmtDate(d: string) {
       ))}
     </div>
   ) : (
-    <p class="text-sm text-ink-400">videolar yüklenemedi.</p>
+    <p class="text-sm text-ink-secondary">videolar yüklenemedi.</p>
   )}
 </section>

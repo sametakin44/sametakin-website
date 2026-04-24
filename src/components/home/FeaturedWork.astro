@@ -1,23 +1,53 @@
 ---
 import { projects } from '../../data/projects';
+
+type Tone = 'accent' | 'warm' | 'mint';
+
+const toneByTag: Record<string, Tone> = {
+  'generative ai': 'accent',
+  'agentic ai': 'accent',
+  'research · signal processing': 'warm',
+  'rag': 'warm',
+  'computer vision': 'mint',
+  'agentic rag': 'mint',
+};
+
+const toneClasses: Record<Tone, { badge: string; card: string }> = {
+  accent: {
+    badge: 'bg-accent/10 text-accent border-accent/20',
+    card: 'hover:border-accent/40',
+  },
+  warm: {
+    badge: 'bg-warm/10 text-warm border-warm/25',
+    card: 'hover:border-warm/40',
+  },
+  mint: {
+    badge: 'bg-mint/10 text-mint border-mint/25',
+    card: 'hover:border-mint/40',
+  },
+};
 ---
 
 <section id="calismalar" class="mx-auto max-w-[1200px] px-5 mt-24">
   <div class="mb-8">
-    <h2 class="font-mono text-sm text-ink-300">seçilmiş çalışmalar</h2>
-    <h3 class="text-xl text-ink-100 font-semibold mt-1">son 1-2 yılda dokunduğum şeyler</h3>
+    <h2 class="font-mono text-sm text-ink-secondary">seçilmiş çalışmalar</h2>
+    <h3 class="text-xl text-ink-primary font-semibold mt-1">son 1-2 yılda dokunduğum şeyler</h3>
   </div>
 
   <div class="grid md:grid-cols-2 gap-5">
-    {projects.map((p) => (
-      <div class="group rounded-xl border border-ink-800 bg-ink-900/40 p-6 hover:border-accent/40 hover:-translate-y-1 transition-all duration-200">
-        <span class="inline-block text-xs font-mono text-accent/80 mb-3">
-          {p.tag}
-        </span>
-        <h3 class="text-ink-100 font-semibold leading-snug">{p.title}</h3>
-        <p class="text-sm text-ink-400 mt-2 leading-relaxed">{p.summary}</p>
-        <p class="text-xs font-mono text-ink-400/70 mt-4">{p.subtitle}</p>
-      </div>
-    ))}
+    {projects.map((p) => {
+      const tone: Tone = toneByTag[p.tag] ?? 'accent';
+      const cls = toneClasses[tone];
+      return (
+        <div class={`group rounded-xl border border-line-sub bg-bg-surface p-6 hover:-translate-y-1 transition-all duration-200 ${cls.card}`}>
+          <span class={`inline-block text-[10px] font-mono mb-3 rounded-full border px-2 py-0.5 ${cls.badge}`}>
+            {p.tag}
+          </span>
+          <h3 class="text-ink-primary font-semibold leading-snug">{p.title}</h3>
+          <p class="text-sm text-ink-secondary mt-2 leading-relaxed">{p.summary}</p>
+          <p class="text-xs font-mono text-ink-tertiary mt-4">{p.subtitle}</p>
+        </div>
+      );
+    })}
   </div>
 </section>

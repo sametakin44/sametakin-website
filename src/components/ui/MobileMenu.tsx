@@ -21,17 +21,17 @@ export default function MobileMenu() {
         className="md:hidden flex flex-col gap-1.5 p-1"
       >
         <span
-          className={`block h-0.5 w-5 bg-ink-100 transition-transform duration-200 ${
+          className={`block h-0.5 w-5 bg-ink-primary transition-transform duration-200 ${
             open ? 'translate-y-2 rotate-45' : ''
           }`}
         />
         <span
-          className={`block h-0.5 w-5 bg-ink-100 transition-opacity duration-200 ${
+          className={`block h-0.5 w-5 bg-ink-primary transition-opacity duration-200 ${
             open ? 'opacity-0' : ''
           }`}
         />
         <span
-          className={`block h-0.5 w-5 bg-ink-100 transition-transform duration-200 ${
+          className={`block h-0.5 w-5 bg-ink-primary transition-transform duration-200 ${
             open ? '-translate-y-2 -rotate-45' : ''
           }`}
         />
@@ -45,14 +45,14 @@ export default function MobileMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="fixed inset-0 top-14 z-40 bg-ink-950 flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 top-14 z-40 bg-bg-base flex flex-col items-center justify-center gap-8"
           >
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-2xl font-mono text-ink-300 hover:text-accent transition-colors duration-200"
+                className="text-2xl font-mono text-ink-secondary hover:text-accent transition-colors duration-200"
               >
                 {link.label}
               </a>

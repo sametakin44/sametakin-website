@@ -18,13 +18,13 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label="Tema değiştir"
-      className="relative h-6 w-11 rounded-full bg-ink-800 p-0.5 transition-colors duration-200 hover:bg-ink-700"
+      className="relative h-6 w-11 rounded-full bg-bg-elevated border border-line-sub p-0.5 transition-colors duration-[250ms] hover:border-line-em"
     >
       <div
-        className={`h-5 w-5 rounded-full transition-all duration-200 ${
+        className={`h-4 w-4 rounded-full transition-all duration-[250ms] ease-out ${
           dark
             ? 'translate-x-5 bg-accent'
-            : 'translate-x-0 bg-ink-300'
+            : 'translate-x-0 bg-warm'
         }`}
       />
     </button>

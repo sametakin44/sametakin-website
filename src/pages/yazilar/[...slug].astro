@@ -29,7 +29,7 @@ function fmtDate(d: Date) {
   <article class="mx-auto max-w-2xl px-5 py-24">
     <a
       href="/yazilar"
-      class="text-xs font-mono text-ink-400 hover:text-accent transition-colors duration-200"
+      class="text-xs font-mono text-ink-tertiary hover:text-accent transition-colors duration-200"
     >
       ← tüm yazılar
     </a>
@@ -37,24 +37,24 @@ function fmtDate(d: Date) {
     <header class="mt-8 mb-12">
       <div class="flex items-center gap-3">
         {post.data.draft && (
-          <span class="text-[10px] font-mono text-ink-400 border border-dashed border-ink-700 rounded px-1.5 py-0.5">
+          <span class="text-[10px] font-mono text-ink-tertiary border border-dashed border-line-em rounded px-1.5 py-0.5">
             taslak
           </span>
         )}
         {post.data.readingTime && (
-          <span class="text-xs font-mono text-ink-400">{post.data.readingTime}</span>
+          <span class="text-xs font-mono text-ink-tertiary">{post.data.readingTime}</span>
         )}
       </div>
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mt-3">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mt-3 text-ink-primary">
         {post.data.title}
       </h1>
-      <p class="text-ink-400 mt-2 text-sm">{post.data.description}</p>
-      <time class="block text-xs font-mono text-ink-400/70 mt-4">
+      <p class="text-ink-secondary mt-2 text-sm">{post.data.description}</p>
+      <time class="block text-xs font-mono text-ink-tertiary mt-4">
         {fmtDate(post.data.pubDate)}
       </time>
     </header>
 
-    <div class="prose prose-invert prose-lg max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-accent prose-code:font-mono prose-code:text-sm prose-pre:bg-ink-900 prose-pre:border prose-pre:border-ink-800">
+    <div class="prose prose-invert prose-lg max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-accent prose-code:font-mono prose-code:text-sm prose-pre:bg-bg-surface prose-pre:border prose-pre:border-line-sub">
       <Content />
     </div>
   </article>

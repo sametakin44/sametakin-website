@@ -5,20 +5,31 @@ export default {
   theme: {
     extend: {
       colors: {
-        accent: {
-          DEFAULT: '#534AB7',
-          hover: '#6158d1',
-          muted: '#3b3490',
+        bg: {
+          base: 'var(--bg-base)',
+          surface: 'var(--bg-surface)',
+          elevated: 'var(--bg-elevated)',
+          glass: 'var(--bg-glass)',
         },
         ink: {
-          950: '#0a0a0b',
-          900: '#101012',
-          800: '#17171b',
-          700: '#22222a',
-          400: '#8a8a93',
-          300: '#b8b8c0',
-          100: '#ededf0',
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          tertiary: 'var(--text-tertiary)',
         },
+        line: {
+          hair: 'var(--border-hairline)',
+          sub: 'var(--border-subtle)',
+          em: 'var(--border-emphasis)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          hover: 'var(--accent-hover)',
+          muted: 'var(--accent-muted)',
+          deep: 'var(--accent-deep)',
+        },
+        warm: 'var(--warm)',
+        mint: 'var(--mint)',
+        status: 'var(--status)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

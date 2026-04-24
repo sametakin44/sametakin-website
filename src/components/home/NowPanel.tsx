@@ -9,11 +9,11 @@ interface Props {
 /* ── Havelsan terminal lines ── */
 const terminalLines = [
   { text: '$ havelsan/main — generative ai intern', color: '' },
-  { text: '─────────────────────────────────────', color: 'text-ink-700' },
-  { text: '[ok]  pdf → fine-tuning dataset pipeline', color: 'text-emerald-400' },
-  { text: '[ok]  multi-threaded, fastapi + gradio', color: 'text-emerald-400' },
-  { text: '[..]  benchmarking turkish llms…', color: 'text-amber-400' },
-  { text: '[i]   led technical discussions w/ team', color: 'text-sky-400' },
+  { text: '─────────────────────────────────────', color: 'text-line-em' },
+  { text: '[ok]  pdf → fine-tuning dataset pipeline', color: 'text-mint' },
+  { text: '[ok]  multi-threaded, fastapi + gradio', color: 'text-mint' },
+  { text: '[..]  benchmarking turkish llms…', color: 'text-warm' },
+  { text: '[i]   led technical discussions w/ team', color: 'text-accent' },
 ];
 
 /* ── ABR wave SVG path ── */
@@ -41,13 +41,11 @@ export default function NowPanel({ videos }: Props) {
   const [active, setActive] = useState(0);
   const [lines, setLines] = useState(0);
 
-  /* auto-rotate every 6s */
   useEffect(() => {
     const t = setInterval(() => setActive((p) => (p + 1) % 3), 6000);
     return () => clearInterval(t);
   }, []);
 
-  /* typewriter reset when slide 0 becomes active */
   useEffect(() => {
     if (active !== 0) return;
     setLines(0);
@@ -72,17 +70,16 @@ export default function NowPanel({ videos }: Props) {
   };
 
   return (
-    <div className="rounded-2xl border border-ink-800 bg-ink-900/60 p-6 h-[420px] relative overflow-hidden flex flex-col">
-      {/* header */}
+    <div className="rounded-2xl border border-line-sub bg-bg-surface/60 p-6 h-[420px] relative overflow-hidden flex flex-col">
       <div className="flex items-center justify-between mb-4">
-        <span className="font-mono text-xs text-ink-400">şu an</span>
+        <span className="font-mono text-xs text-ink-tertiary">şu an</span>
         <div className="flex gap-1.5">
           {[0, 1, 2].map((i) => (
             <button
               key={i}
               onClick={() => setActive(i)}
               className={`h-1.5 w-1.5 rounded-full transition-colors duration-200 ${
-                i === active ? 'bg-accent' : 'bg-ink-700'
+                i === active ? 'bg-accent' : 'bg-line-em'
               }`}
               aria-label={`Slayt ${i + 1}`}
             />
@@ -90,7 +87,6 @@ export default function NowPanel({ videos }: Props) {
         </div>
       </div>
 
-      {/* slides */}
       <div className="flex-1 relative">
         <AnimatePresence mode="wait">
           {active === 0 && <HaverslanSlide key="h" lines={lines} />}
@@ -104,7 +100,6 @@ export default function NowPanel({ videos }: Props) {
   );
 }
 
-/* ─────────── Slide 0: Havelsan ─────────── */
 function HaverslanSlide({ lines }: { lines: number }) {
   return (
     <motion.div
@@ -115,14 +110,13 @@ function HaverslanSlide({ lines }: { lines: number }) {
       transition={slideTrans}
       className="absolute inset-0 flex flex-col"
     >
-      <div className="flex-1 rounded-lg bg-ink-950 p-4 font-mono text-xs overflow-hidden">
-        {/* macOS dots */}
+      <div className="flex-1 rounded-lg bg-bg-base p-4 font-mono text-xs overflow-hidden">
         <div className="flex gap-1.5 mb-3">
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
         </div>
-        <div className="space-y-1 text-ink-300 leading-relaxed">
+        <div className="space-y-1 text-ink-secondary leading-relaxed">
           {terminalLines.slice(0, lines).map((l, i) => (
             <div key={i} className={l.color}>
               {l.text}
@@ -131,14 +125,13 @@ function HaverslanSlide({ lines }: { lines: number }) {
           <span className="animate-pulse text-accent">▌</span>
         </div>
       </div>
-      <p className="text-xs text-ink-400 mt-3">
+      <p className="text-xs text-ink-tertiary mt-3">
         havelsan main ai center · ankara · 2025
       </p>
     </motion.div>
   );
 }
 
-/* ─────────── Slide 1: YouTube ─────────── */
 function YouTubeSlide({
   video,
   fmtDate,
@@ -160,7 +153,7 @@ function YouTubeSlide({
       transition={slideTrans}
       className="absolute inset-0 flex flex-col"
     >
-      <p className="font-mono text-xs text-ink-400 mb-3">
+      <p className="font-mono text-xs text-ink-tertiary mb-3">
         son video · youtube
       </p>
 
@@ -171,7 +164,7 @@ function YouTubeSlide({
           rel="noopener noreferrer"
           className="flex-1 flex flex-col group"
         >
-          <div className="relative aspect-video rounded-lg overflow-hidden bg-ink-800">
+          <div className="relative aspect-video rounded-lg overflow-hidden bg-bg-elevated">
             <img
               src={video.thumbnail}
               alt={video.title}
@@ -184,24 +177,23 @@ function YouTubeSlide({
               </span>
             </div>
           </div>
-          <h3 className="text-sm text-ink-100 mt-3 line-clamp-2 leading-snug">
+          <h3 className="text-sm text-ink-primary mt-3 line-clamp-2 leading-snug">
             {video.title}
           </h3>
-          <p className="text-xs text-ink-400 mt-1">
+          <p className="text-xs text-ink-tertiary mt-1">
             {fmtDate(video.published)}
           </p>
         </a>
       ) : (
         <div className="flex-1 flex flex-col justify-center">
-          <h3 className="text-sm text-ink-100">{fallbackTitle}</h3>
-          <p className="text-xs text-ink-400 mt-2">youtube · teknik seri</p>
+          <h3 className="text-sm text-ink-primary">{fallbackTitle}</h3>
+          <p className="text-xs text-ink-tertiary mt-2">youtube · teknik seri</p>
         </div>
       )}
     </motion.div>
   );
 }
 
-/* ─────────── Slide 2: ABR ─────────── */
 function ABRSlide() {
   return (
     <motion.div
@@ -212,7 +204,7 @@ function ABRSlide() {
       transition={slideTrans}
       className="absolute inset-0 flex flex-col"
     >
-      <p className="font-mono text-xs text-ink-400 mb-3">
+      <p className="font-mono text-xs text-ink-tertiary mb-3">
         araştırma · tübitak 1001
       </p>
       <div className="flex-1 flex items-center justify-center px-2">
@@ -220,7 +212,7 @@ function ABRSlide() {
           <motion.path
             d={abrPath}
             fill="none"
-            stroke="#534AB7"
+            stroke="var(--accent)"
             strokeWidth="2.5"
             strokeLinecap="round"
             initial={{ pathLength: 0 }}
@@ -233,7 +225,7 @@ function ABRSlide() {
               x={p.x}
               y={p.y}
               textAnchor="middle"
-              fill="#8a8a93"
+              fill="var(--text-tertiary)"
               fontSize="9"
               fontFamily="JetBrains Mono, monospace"
               initial={{ opacity: 0 }}
@@ -247,7 +239,7 @@ function ABRSlide() {
             cx={210}
             cy={12}
             r={3.5}
-            fill="#534AB7"
+            fill="var(--accent)"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 2.2, duration: 0.3 }}
@@ -255,10 +247,10 @@ function ABRSlide() {
         </svg>
       </div>
       <div className="space-y-1 mt-3">
-        <p className="text-xs text-ink-300 leading-relaxed">
+        <p className="text-xs text-ink-secondary leading-relaxed">
           abr sinyallerinde dalga tespiti ve frekans-özgü işitme eşiği tahmini
         </p>
-        <p className="text-xs text-ink-400">
+        <p className="text-xs text-ink-tertiary">
           mentör: prof. dr. bahadır kürşat güntürk · medipol
         </p>
       </div>

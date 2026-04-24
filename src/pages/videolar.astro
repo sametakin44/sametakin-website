@@ -24,8 +24,8 @@ function fmtDate(d: string) {
   <section class="mx-auto max-w-[1200px] px-5 py-24">
     <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4 mb-12">
       <div>
-        <h1 class="text-4xl font-bold tracking-tight">videolar</h1>
-        <p class="text-ink-400 mt-2 text-sm">derin öğrenme, llm ve yapay zeka üzerine türkçe içerikler</p>
+        <h1 class="text-4xl font-bold tracking-tight text-ink-primary">videolar</h1>
+        <p class="text-ink-secondary mt-2 text-sm">derin öğrenme, llm ve yapay zeka üzerine türkçe içerikler</p>
       </div>
       <a
         href="https://youtube.com/@sametakin44"
@@ -44,9 +44,9 @@ function fmtDate(d: string) {
             href={v.link}
             target="_blank"
             rel="noopener noreferrer"
-            class="group rounded-xl border border-ink-800 bg-ink-900/40 overflow-hidden hover:border-accent/40 transition-all duration-200"
+            class="group rounded-xl border border-line-sub bg-bg-surface overflow-hidden hover:border-accent/40 transition-all duration-200"
           >
-            <div class="aspect-video overflow-hidden bg-ink-800">
+            <div class="aspect-video overflow-hidden bg-bg-elevated">
               {v.thumbnail && (
                 <img
                   src={v.thumbnail}
@@ -57,10 +57,10 @@ function fmtDate(d: string) {
               )}
             </div>
             <div class="p-4">
-              <h3 class="text-sm text-ink-100 group-hover:text-accent transition-colors duration-200 line-clamp-2 leading-snug">
+              <h3 class="text-sm text-ink-primary group-hover:text-accent transition-colors duration-200 line-clamp-2 leading-snug">
                 {v.title}
               </h3>
-              <p class="text-xs font-mono text-ink-400 mt-2">
+              <p class="text-xs font-mono text-ink-tertiary mt-2">
                 {fmtDate(v.published)}
               </p>
             </div>
@@ -68,7 +68,7 @@ function fmtDate(d: string) {
         ))}
       </div>
     ) : (
-      <p class="text-sm text-ink-400">videolar yüklenemedi.</p>
+      <p class="text-sm text-ink-secondary">videolar yüklenemedi.</p>
     )}
   </section>
 </Layout>
