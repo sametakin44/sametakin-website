@@ -64,22 +64,15 @@ export default function YouTubeThumbnail({
   }, [videoId, initialSrc, initialFailed]);
 
   if (failed) {
-    const hash = videoId
-      .split('')
-      .reduce((acc, c) => acc + c.charCodeAt(0), 0);
-    const hue = (hash * 37) % 360;
     return (
       <div
-        className={`w-full h-full flex items-center justify-center ${className}`}
-        style={{
-          background: `linear-gradient(135deg, hsl(${hue}, 45%, 22%) 0%, hsl(${(hue + 40) % 360}, 50%, 14%) 100%)`,
-        }}
+        className={`w-full h-full flex items-center justify-center bg-bg-elevated border border-line-hair ${className}`}
       >
         <div className="px-6 py-4 text-center">
-          <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/60 mb-2">
+          <div className="text-[11px] font-mono uppercase tracking-[0.25em] text-ink-tertiary mb-2">
             video
           </div>
-          <div className="text-sm font-medium text-white/90 line-clamp-3">
+          <div className="text-sm font-medium text-ink-secondary line-clamp-3">
             {title}
           </div>
         </div>
@@ -88,11 +81,7 @@ export default function YouTubeThumbnail({
   }
 
   if (!src) {
-    return (
-      <div
-        className={`w-full h-full bg-gradient-to-br from-bg-elevated to-bg-surface animate-pulse ${className}`}
-      />
-    );
+    return <div className={`w-full h-full bg-bg-elevated ${className}`} />;
   }
 
   return (

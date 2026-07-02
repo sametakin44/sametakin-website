@@ -1,5 +1,5 @@
 ---
-import { tutorialPlaylists, type PlaylistAccent } from '../../data/playlists';
+import { tutorialPlaylists } from '../../data/playlists';
 import { getPlaylistData } from '../../lib/youtube';
 import YouTubeThumbnail from '../ui/YouTubeThumbnail';
 
@@ -7,40 +7,20 @@ const playlists = tutorialPlaylists.map((meta) => ({
   meta,
   data: getPlaylistData(meta.id),
 }));
-
-const borderClass: Record<PlaylistAccent, string> = {
-  accent: 'border-accent/25 hover:border-accent/50',
-  warm: 'border-warm/25 hover:border-warm/50',
-  mint: 'border-mint/25 hover:border-mint/50',
-};
-
-const textAccentClass: Record<PlaylistAccent, string> = {
-  accent: 'text-accent',
-  warm: 'text-warm',
-  mint: 'text-mint',
-};
-
-const hoverTitleClass: Record<PlaylistAccent, string> = {
-  accent: 'group-hover:text-accent',
-  warm: 'group-hover:text-warm',
-  mint: 'group-hover:text-mint',
-};
 ---
 
-<section id="tutorials" class="mx-auto max-w-5xl px-5 mt-24">
-  <div class="mb-10">
-    <p class="text-xs font-mono text-ink-tertiary uppercase tracking-wider mb-2">
-      tutorials
-    </p>
-    <h2 class="text-2xl md:text-3xl font-semibold text-ink-primary">
+<section id="tutorials" class="mx-auto max-w-5xl px-5 mt-32">
+  <div class="mb-12">
+    <p class="eyebrow mb-3">Tutorials</p>
+    <h2 class="font-display text-3xl md:text-5xl text-ink-primary">
       Turkish video series I'm building
     </h2>
-    <p class="text-sm text-ink-secondary mt-3 max-w-lg">
+    <p class="text-[15px] text-ink-secondary mt-4 max-w-lg leading-[1.7]">
       Two ongoing playlists for people learning AI in Turkish.
     </p>
   </div>
 
-  <div class="grid md:grid-cols-2 gap-5">
+  <div class="grid md:grid-cols-2 gap-x-8 gap-y-12">
     {playlists.map(({ meta, data }) => {
       if (!data) return null;
       const count = meta.manualVideoCount ?? data.videoCount;
@@ -50,43 +30,33 @@ const hoverTitleClass: Record<PlaylistAccent, string> = {
           href={data.playlistUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class={`group relative rounded-2xl border ${borderClass[meta.accent]} bg-bg-surface overflow-hidden transition hover:-translate-y-0.5 hover:shadow-xl`}
+          class="group block"
         >
-          <div class="aspect-video relative overflow-hidden bg-bg-elevated isolate">
+          <div class="aspect-video relative overflow-hidden rounded-[2px] bg-bg-elevated isolate">
             {latest && (
               <YouTubeThumbnail
                 videoId={latest.id}
                 title={latest.title}
-                className="group-hover:scale-[1.03] transition duration-500"
+                className="group-hover:scale-[1.02] transition-transform duration-700 ease-out"
                 client:visible
               />
             )}
-            <div class="absolute inset-0 bg-gradient-to-t from-bg-base/95 via-bg-base/30 to-transparent pointer-events-none"></div>
-            <div class="absolute top-4 left-4 flex items-center gap-2">
-              <span class={`text-[10px] font-mono uppercase tracking-[0.2em] ${textAccentClass[meta.accent]} bg-bg-base/80 backdrop-blur-sm px-2.5 py-1 rounded-full border border-line-hair`}>
-                series · {count} videos
-              </span>
-            </div>
-            <div class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white/95 backdrop-blur flex items-center justify-center opacity-0 group-hover:opacity-100 transition translate-y-2 group-hover:translate-y-0">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#111">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
           </div>
 
-          <div class="p-5">
-            <h3 class={`text-lg font-medium text-ink-primary ${hoverTitleClass[meta.accent]} transition mb-1.5`}>
+          <div class="pt-5 border-t border-line-hair mt-5">
+            <p class="eyebrow mb-3">Series · {count} videos</p>
+            <h3 class="font-display text-2xl text-ink-primary group-hover:text-accent transition-colors duration-300">
               {meta.title}
             </h3>
-            <p class="text-sm text-ink-secondary leading-relaxed">
+            <p class="text-sm text-ink-secondary leading-[1.7] mt-2">
               {meta.description}
             </p>
             {latest && (
-              <div class="mt-4 pt-4 border-t border-line-hair flex items-center justify-between text-xs font-mono gap-3">
-                <span class="text-ink-tertiary uppercase tracking-wider shrink-0">
-                  latest
+              <div class="mt-5 pt-4 border-t border-line-hair flex items-baseline justify-between gap-3 font-mono text-[11px]">
+                <span class="uppercase tracking-[0.25em] text-warm shrink-0">
+                  Latest
                 </span>
-                <span class="text-ink-secondary truncate">
+                <span class="text-ink-secondary truncate normal-case">
                   {latest.title}
                 </span>
               </div>
@@ -97,14 +67,14 @@ const hoverTitleClass: Record<PlaylistAccent, string> = {
     })}
   </div>
 
-  <div class="mt-10 flex justify-center">
+  <div class="mt-14 flex justify-center">
     <a
       href="https://www.youtube.com/@sametakin44"
       target="_blank"
       rel="noopener noreferrer"
-      class="text-sm font-mono text-ink-tertiary hover:text-accent transition inline-flex items-center gap-2"
+      class="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-tertiary hover:text-accent transition-colors duration-300 inline-flex items-center gap-2"
     >
-      more on youtube
+      More on YouTube
       <span aria-hidden>→</span>
     </a>
   </div>

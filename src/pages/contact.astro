@@ -34,28 +34,28 @@ const channels = [
   description="Reach Samet Akın by email, LinkedIn, or YouTube."
 >
   <section class="mx-auto max-w-4xl px-5 py-24">
-    <header class="mb-12">
-      <p class="text-xs font-mono text-ink-tertiary uppercase tracking-wider mb-2">
-        contact
-      </p>
-      <h1 class="text-3xl md:text-4xl font-semibold text-ink-primary">
-        get in touch
+    <header class="mb-14">
+      <p class="eyebrow mb-3">Contact</p>
+      <h1 class="font-display text-3xl md:text-5xl text-ink-primary">
+        Get in touch
       </h1>
-      <p class="text-sm text-ink-secondary mt-3 max-w-md">
+      <p class="text-[15px] text-ink-secondary mt-4 max-w-md leading-[1.7]">
         Collaboration, research, a talk about a model — drop a line.
       </p>
     </header>
 
     <ul class="divide-y divide-line-hair border-y border-line-hair max-w-xl font-mono text-sm">
       {channels.map((c) => (
-        <li class="flex justify-between py-4 px-2 -mx-2 hover:bg-bg-surface transition">
-          <span class="text-ink-tertiary uppercase tracking-wider">{c.label}</span>
+        <li class="flex justify-between items-baseline py-5 px-2 -mx-2 hover:bg-bg-surface transition-colors duration-[400ms]">
+          <span class="eyebrow">{c.label}</span>
           <a
             href={c.href}
             target={c.href.startsWith('http') ? '_blank' : undefined}
             rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
             class:list={[
-              c.muted ? 'text-ink-tertiary' : 'text-ink-primary hover:text-accent',
+              c.muted
+                ? 'text-ink-tertiary'
+                : 'text-ink-primary hover:text-accent transition-colors duration-300',
             ]}
           >
             {c.value}{!c.muted && ' →'}

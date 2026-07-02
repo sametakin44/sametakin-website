@@ -1,56 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 @config "../../tailwind.config.mjs";
 @plugin "@tailwindcss/typography";
 
-/* ── Light (default) ── */
+/* ── Dark (default) — gece editoryali ── */
 :root {
-  --bg-base: #F8F6F0;
-  --bg-surface: #FFFFFF;
-  --bg-elevated: #FFFFFF;
-  --bg-glass: rgba(248, 246, 240, 0.78);
+  --bg-base: #05070B;
+  --bg-surface: #08111F;
+  --bg-elevated: #0D1726;
+  --bg-glass: rgba(5, 7, 11, 0.88);
 
-  --border-hairline: rgba(26, 24, 37, 0.08);
-  --border-subtle: rgba(26, 24, 37, 0.14);
-  --border-emphasis: rgba(83, 74, 183, 0.3);
-
-  --text-primary: #1A1825;
-  --text-secondary: #5D5B72;
-  --text-tertiary: #8B8999;
-
-  --accent: #534AB7;
-  --accent-hover: #6158d1;
-  --accent-muted: #7F77DD;
-  --accent-deep: #26215C;
-
-  --warm: #C96A45;
-  --mint: #0F6E56;
-  --status: #1D9E75;
-}
-
-/* ── Dark ── */
-.dark {
-  --bg-base: #0A0812;
-  --bg-surface: #14121D;
-  --bg-elevated: #1C1A28;
-  --bg-glass: rgba(20, 18, 29, 0.72);
-
-  --border-hairline: rgba(237, 237, 240, 0.06);
-  --border-subtle: rgba(237, 237, 240, 0.1);
+  --border-hairline: rgba(242, 235, 221, 0.06);
+  --border-subtle: rgba(242, 235, 221, 0.11);
   --border-emphasis: rgba(139, 127, 255, 0.3);
 
-  --text-primary: #EDEDF0;
-  --text-secondary: #9B99B3;
-  --text-tertiary: #62617A;
+  --text-primary: #F2EBDD;
+  --text-secondary: #9AA3AF;
+  --text-tertiary: #5F6773;
 
   --accent: #8B7FFF;
   --accent-hover: #A298FF;
   --accent-muted: #5A52B5;
   --accent-deep: #26215C;
 
-  --warm: #E8A87C;
-  --mint: #5DCAA5;
-  --status: #5DCAA5;
+  /* altın — sadece mikro detaylarda (hover altçizgi, "latest" etiketi) */
+  --warm: #C8A56A;
+}
+
+/* ── Light — editorial print ── */
+html:not(.dark) {
+  --bg-base: #F7F4EE;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #FFFFFF;
+  --bg-glass: rgba(247, 244, 238, 0.92);
+
+  --border-hairline: rgba(18, 20, 26, 0.08);
+  --border-subtle: rgba(18, 20, 26, 0.14);
+  --border-emphasis: rgba(83, 74, 183, 0.3);
+
+  --text-primary: #12141A;
+  --text-secondary: #565D66;
+  --text-tertiary: #8B8F98;
+
+  --accent: #534AB7;
+  --accent-hover: #6158d1;
+  --accent-muted: #7F77DD;
+  --accent-deep: #26215C;
+
+  --warm: #A8834A;
 }
 
 /* ── Base ── */
@@ -61,14 +58,50 @@ html {
 body {
   background-color: var(--bg-base);
   color: var(--text-primary);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Manrope', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Headings lowercase ── */
 h1, h2, h3 {
-  text-transform: lowercase;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* ── Standart mikro etiket — sitedeki tüm küçük etiketler bu tek stil ── */
+.eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--text-tertiary);
+}
+
+/* ── Hero yükleniş: 120ms stagger fade-up ── */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-1 { animation-delay: 0ms; }
+.reveal-2 { animation-delay: 120ms; }
+.reveal-3 { animation-delay: 240ms; }
+.reveal-4 { animation-delay: 360ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 /* ── Selection ── */
@@ -87,10 +120,9 @@ h1, h2, h3 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 3px;
+  background: var(--accent-muted);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-hover);
+  background: var(--accent);
 }

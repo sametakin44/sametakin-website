@@ -1,27 +1,38 @@
 ---
 import { projects } from '../../data/projects';
+
+const pad = (n: number) => String(n + 1).padStart(2, '0');
 ---
 
-<section id="work" class="mx-auto max-w-5xl px-5 mt-24">
-  <div class="mb-10">
-    <p class="text-xs font-mono text-ink-tertiary uppercase tracking-wider mb-2">
-      work
-    </p>
-    <h2 class="text-2xl md:text-3xl font-semibold text-ink-primary">
-      things I've built
+<section id="work" class="mx-auto max-w-5xl px-5 mt-32">
+  <div class="mb-12">
+    <p class="eyebrow mb-3">Work</p>
+    <h2 class="font-display text-3xl md:text-5xl text-ink-primary">
+      Selected work
     </h2>
   </div>
 
-  <div class="grid md:grid-cols-2 gap-4">
-    {projects.map((p) => (
-      <article class="group relative rounded-xl border border-line-sub p-6 hover:border-accent/40 hover:-translate-y-0.5 transition bg-bg-surface">
-        <h3 class="text-base md:text-lg font-medium text-ink-primary mb-2 group-hover:text-accent transition">
-          {p.title}
-        </h3>
-        <p class="text-sm text-ink-secondary leading-relaxed">
-          {p.summary}
-        </p>
-      </article>
+  <ol>
+    {projects.map((p, i) => (
+      <li class="border-t border-line-hair last:border-b">
+        <article class="group grid md:grid-cols-[80px_1fr_auto] gap-6 items-baseline py-8 md:py-10 px-2 -mx-2 hover:bg-bg-surface transition-colors duration-[400ms]">
+          <span class="font-mono text-xs text-ink-tertiary">{pad(i)}</span>
+          <div>
+            <h3 class="font-display text-2xl md:text-4xl text-ink-primary group-hover:text-accent transition-colors duration-300">
+              {p.title}
+            </h3>
+            <p class="text-sm text-ink-secondary max-w-xl mt-2 leading-[1.7]">
+              {p.summary}
+            </p>
+          </div>
+          <span
+            aria-hidden
+            class="hidden md:block font-mono text-ink-tertiary group-hover:text-accent group-hover:translate-x-1.5 transition-all duration-300"
+          >
+            →
+          </span>
+        </article>
+      </li>
     ))}
-  </div>
+  </ol>
 </section>

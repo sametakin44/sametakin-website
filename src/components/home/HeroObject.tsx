@@ -37,7 +37,7 @@ export default function HeroObject() {
       color: getAccent(),
       wireframe: true,
       transparent: true,
-      opacity: 0.55,
+      opacity: 0.35,
     });
     const outer = new THREE.Mesh(
       new THREE.IcosahedronGeometry(1.9, 1),
@@ -58,7 +58,7 @@ export default function HeroObject() {
     scene.add(inner);
 
     const positions: number[] = [];
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 120; i++) {
       const r = 3 + Math.random() * 2;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
@@ -83,16 +83,12 @@ export default function HeroObject() {
     scene.add(points);
 
     let raf = 0;
-    let frame = 0;
     const loop = () => {
-      frame++;
-      outer.rotation.x += 0.0015;
-      outer.rotation.y += 0.0022;
-      inner.rotation.x -= 0.001;
-      inner.rotation.y -= 0.0018;
-      points.rotation.y += 0.0004;
-      const s = 1 + Math.sin(frame * 0.008) * 0.04;
-      outer.scale.set(s, s, s);
+      outer.rotation.x += 0.00105;
+      outer.rotation.y += 0.00154;
+      inner.rotation.x -= 0.0007;
+      inner.rotation.y -= 0.00126;
+      points.rotation.y += 0.00028;
       renderer.render(scene, camera);
       raf = requestAnimationFrame(loop);
     };

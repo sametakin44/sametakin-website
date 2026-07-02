@@ -23,14 +23,12 @@ const shortDate = (published: string) =>
   description="Turkish tutorial playlists on deep learning and large language models."
 >
   <section class="mx-auto max-w-5xl px-5 py-16 md:py-20">
-    <header class="mb-12">
-      <p class="text-xs font-mono text-ink-tertiary uppercase tracking-wider mb-2">
-        videos
-      </p>
-      <h1 class="text-3xl md:text-4xl font-semibold text-ink-primary">
-        tutorial playlists
+    <header class="mb-14">
+      <p class="eyebrow mb-3">Videos</p>
+      <h1 class="font-display text-3xl md:text-5xl text-ink-primary">
+        Tutorial playlists
       </h1>
-      <p class="text-sm text-ink-secondary mt-3 max-w-md">
+      <p class="text-[15px] text-ink-secondary mt-4 max-w-md leading-[1.7]">
         Turkish-language video series on deep learning and LLMs.
       </p>
     </header>
@@ -38,18 +36,18 @@ const shortDate = (published: string) =>
     {playlists.map(({ meta, data }) => {
       if (!data) return null;
       return (
-        <section class="mb-16">
-          <div class="flex items-baseline justify-between mb-6">
-            <h2 class="text-xl md:text-2xl font-medium text-ink-primary">
+        <section class="mb-20 pt-8 border-t border-line-hair">
+          <div class="flex items-baseline justify-between mb-8">
+            <h2 class="font-display text-2xl md:text-3xl text-ink-primary">
               {meta.title}
             </h2>
             <a
               href={data.playlistUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-xs font-mono text-ink-tertiary hover:text-accent"
+              class="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-tertiary hover:text-accent transition-colors duration-300"
             >
-              playlist →
+              Playlist →
             </a>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -60,15 +58,15 @@ const shortDate = (published: string) =>
                 rel="noopener noreferrer"
                 class="group block"
               >
-                <div class="aspect-video rounded-lg overflow-hidden bg-bg-elevated mb-3 isolate">
+                <div class="aspect-video rounded-[2px] overflow-hidden bg-bg-elevated mb-3 isolate">
                   <YouTubeThumbnail
                     videoId={video.id}
                     title={video.title}
-                    className="group-hover:scale-[1.02] transition duration-500"
+                    className="group-hover:scale-[1.02] transition-transform duration-700 ease-out"
                     client:visible
                   />
                 </div>
-                <h3 class="text-sm font-medium text-ink-primary group-hover:text-accent transition leading-snug line-clamp-2">
+                <h3 class="font-sans text-sm font-medium text-ink-primary group-hover:text-accent transition-colors duration-300 leading-snug line-clamp-2">
                   {video.title}
                 </h3>
               </a>
@@ -79,10 +77,10 @@ const shortDate = (published: string) =>
     })}
 
     {channelVideos.length > 0 && (
-      <section class="mb-16">
-        <div class="mb-6">
-          <h2 class="text-xl md:text-2xl font-medium text-ink-primary">
-            all videos
+      <section class="mb-16 pt-8 border-t border-line-hair">
+        <div class="mb-8">
+          <h2 class="font-display text-2xl md:text-3xl text-ink-primary">
+            All videos
           </h2>
           <p class="text-sm text-ink-secondary mt-2">
             everything on the channel, newest first
@@ -96,15 +94,15 @@ const shortDate = (published: string) =>
               rel="noopener noreferrer"
               class="group block"
             >
-              <div class="aspect-video rounded-lg overflow-hidden bg-bg-elevated mb-3 isolate">
+              <div class="aspect-video rounded-[2px] overflow-hidden bg-bg-elevated mb-3 isolate">
                 <YouTubeThumbnail
                   videoId={video.id}
                   title={video.title}
-                  className="group-hover:scale-[1.02] transition duration-500"
+                  className="group-hover:scale-[1.02] transition-transform duration-700 ease-out"
                   client:visible
                 />
               </div>
-              <h3 class="text-sm font-medium text-ink-primary group-hover:text-accent transition leading-snug line-clamp-2">
+              <h3 class="font-sans text-sm font-medium text-ink-primary group-hover:text-accent transition-colors duration-300 leading-snug line-clamp-2">
                 {video.title}
               </h3>
               <p class="text-xs font-mono text-ink-tertiary mt-1.5">

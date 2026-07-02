@@ -24,12 +24,12 @@ const socials = [
 ---
 
 <footer class="mt-24 border-t border-line-hair py-10">
-  <div class="mx-auto max-w-[1200px] px-5 flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+  <div class="mx-auto max-w-[1200px] px-5 flex flex-col md:flex-row items-center justify-between gap-4">
     {/* Left */}
-    <span class="text-ink-secondary">&copy; 2026 Samet Akın</span>
+    <span class="font-mono text-xs text-ink-secondary">&copy; 2026 Samet Akın</span>
 
     {/* Middle */}
-    <span class="text-ink-tertiary text-xs">
+    <span class="font-mono text-xs text-ink-tertiary">
       building things <span class="opacity-60 ml-0.5">&#x1F989;</span>
     </span>
 
@@ -41,7 +41,7 @@ const socials = [
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
-          class="text-ink-secondary hover:text-accent transition-colors duration-200"
+          class="text-ink-secondary hover:text-accent transition-colors duration-300"
         >
           <Fragment set:html={s.icon} />
         </a>

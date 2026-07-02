@@ -28,11 +28,10 @@ export default {
           deep: 'var(--accent-deep)',
         },
         warm: 'var(--warm)',
-        mint: 'var(--mint)',
-        status: 'var(--status)',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Cormorant Garamond', 'Georgia', 'serif'],
+        sans: ['Manrope', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       container: {
