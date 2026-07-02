@@ -46,7 +46,7 @@ float snoise(vec2 v) {
 float fbm(vec2 p) {
   float v = 0.0;
   float a = 0.5;
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 3; i++) {
     v += a * snoise(p);
     p = p * 2.03 + vec2(11.7, 5.3);
     a *= 0.5;
@@ -127,9 +127,13 @@ export default function LiquidBackground() {
     const mobile = window.matchMedia('(max-width: 767px)').matches;
 
     const renderer = new THREE.WebGLRenderer({ antialias: false });
-    // Mobil: yarı çözünürlük render, CSS %100'e ölçeklenir
-    renderer.setPixelRatio(mobile ? 0.5 : Math.min(window.devicePixelRatio, 1.5));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    // pixelRatio sabit 1; drawing buffer 0.75x (mobilde 0.5x), CSS %100'e ölçeklenir
+    const bufScale = mobile ? 0.5 : 0.75;
+    renderer.setPixelRatio(1);
+    const setBufferSize = () => {
+      renderer.setSize(window.innerWidth * bufScale, window.innerHeight * bufScale, false);
+    };
+    setBufferSize();
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
     el.appendChild(renderer.domElement);
@@ -140,7 +144,9 @@ export default function LiquidBackground() {
     const uniforms = {
       uTime: { value: 0 },
       uMouse: { value: new THREE.Vector2(0.5, 0.5) },
-      uRes: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+      uRes: {
+        value: new THREE.Vector2(window.innerWidth * bufScale, window.innerHeight * bufScale),
+      },
       uScroll: { value: 0 },
       uLight: { value: document.documentElement.classList.contains('dark') ? 0 : 1 },
       uStill: { value: reduced ? 1 : 0 },
@@ -159,10 +165,22 @@ export default function LiquidBackground() {
     window.addEventListener('mousemove', onMove, { passive: true });
 
     const onResize = () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      uniforms.uRes.value.set(window.innerWidth, window.innerHeight);
+      setBufferSize();
+      uniforms.uRes.value.set(window.innerWidth * bufScale, window.innerHeight * bufScale);
     };
     window.addEventListener('resize', onResize);
+
+    // Hero viewport dışındayken sürekli render pause; scroll değişiminde
+    // tek kare render (palet kayması donmasın)
+    let heroVisible = true;
+    const heroEl = document.querySelector('.hero-section');
+    const heroIO = heroEl
+      ? new IntersectionObserver(([entry]) => {
+          heroVisible = entry.isIntersecting;
+        })
+      : null;
+    if (heroEl && heroIO) heroIO.observe(heroEl);
+    let lastScrollY = -1;
 
     const themeObserver = new MutationObserver(() => {
       uniforms.uLight.value = document.documentElement.classList.contains('dark') ? 0 : 1;
@@ -171,9 +189,12 @@ export default function LiquidBackground() {
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
     const tick = () => {
+      const sy = window.scrollY;
+      if (!heroVisible && sy === lastScrollY) return; // pause: hero dışı + scroll sabit
+      lastScrollY = sy;
       uniforms.uTime.value += gsap.ticker.deltaRatio(60) / 60;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      uniforms.uScroll.value = max > 0 ? window.scrollY / max : 0;
+      uniforms.uScroll.value = max > 0 ? sy / max : 0;
       uniforms.uMouse.value.lerp(mouseTarget, 0.06);
       renderer.render(scene, camera);
     };
@@ -186,6 +207,7 @@ export default function LiquidBackground() {
 
     return () => {
       gsap.ticker.remove(tick);
+      heroIO?.disconnect();
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('resize', onResize);
       themeObserver.disconnect();

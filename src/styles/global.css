@@ -142,6 +142,34 @@ html.lenis body {
   transform: translateY(-100%);
 }
 
+/* ── Work hover preview: iki gradient blob 8s'de yer değiştirir ── */
+.preview-blob-a {
+  top: -16px;
+  left: -12px;
+  animation: preview-drift-a 8s ease-in-out infinite alternate;
+}
+.preview-blob-b {
+  bottom: -16px;
+  right: -12px;
+  animation: preview-drift-b 8s ease-in-out infinite alternate;
+}
+@keyframes preview-drift-a {
+  to {
+    transform: translate3d(120px, 34px, 0);
+  }
+}
+@keyframes preview-drift-b {
+  to {
+    transform: translate3d(-120px, -34px, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preview-blob-a,
+  .preview-blob-b {
+    animation: none;
+  }
+}
+
 /* ── Tutorials: aktif panel thumbnail'ı ── */
 .tut-thumb img,
 .tut-thumb > div {

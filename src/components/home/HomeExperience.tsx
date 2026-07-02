@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
 import LiquidBackground from './LiquidBackground';
-import LiquidBlob, { type BlobParams } from './LiquidBlob';
+import GalaxyObject, { type GalaxyParams } from './GalaxyObject';
 import CustomCursor from './CustomCursor';
 import YouTubeThumbnail from '../ui/YouTubeThumbnail';
 import { projects } from '../../data/projects';
@@ -59,10 +59,6 @@ function wobblyCirclePath(scale: number): string {
   return pts.join(' ') + ' Z';
 }
 
-function hueFromId(id: string): number {
-  return (id.split('').reduce((a, c) => a + c.charCodeAt(0), 0) * 37) % 360;
-}
-
 const Chars = ({ text }: { text: string }) => (
   <>
     {text.split('').map((c, i) => (
@@ -75,42 +71,22 @@ const Chars = ({ text }: { text: string }) => (
 
 export default function HomeExperience() {
   const root = useRef<HTMLDivElement>(null);
-  const blobParams = useRef<BlobParams>({ scale: 1, x: 0.95, camZ: 6, opacity: 0 }).current;
+  const galaxyParams = useRef<GalaxyParams>({ scatter: 0, opacity: 0 }).current;
   const wipeScale = useRef({ value: 0.0001 }).current;
   const previewRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
-  const [previewTextures, setPreviewTextures] = useState<Record<string, string>>({});
-
-  // Hover preview dokuları: proje id'sinden türeyen hue ile renkli noise (client-only)
-  useEffect(() => {
-    const out: Record<string, string> = {};
-    for (const p of projects) {
-      const cv = document.createElement('canvas');
-      cv.width = 88;
-      cv.height = 56;
-      const ctx = cv.getContext('2d')!;
-      const hue = hueFromId(p.id);
-      ctx.fillStyle = `hsl(${hue}, 30%, 10%)`;
-      ctx.fillRect(0, 0, cv.width, cv.height);
-      for (let i = 0; i < 900; i++) {
-        const l = 8 + Math.random() * 38;
-        ctx.fillStyle = `hsla(${hue + Math.random() * 24 - 12}, 45%, ${l}%, ${0.05 + Math.random() * 0.2})`;
-        ctx.fillRect(Math.random() * cv.width, Math.random() * cv.height, 1 + Math.random() * 3, 1 + Math.random() * 3);
-      }
-      out[p.id] = cv.toDataURL();
-    }
-    setPreviewTextures(out);
-  }, []);
+  const [previewIdx, setPreviewIdx] = useState<number>(0);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ── Lenis smooth scroll, ScrollTrigger ile senkron ──
+    // TEK ticker: lenis.raf yalnızca burada, gsap.ticker üzerinden çağrılır.
     let lenis: Lenis | null = null;
     let lenisRaf: ((t: number) => void) | null = null;
     if (!reduced) {
-      lenis = new Lenis({ lerp: 0.09 });
+      lenis = new Lenis({ lerp: 0.07, wheelMultiplier: 1.0, smoothWheel: true });
       lenis.on('scroll', ScrollTrigger.update);
       lenisRaf = (time: number) => lenis!.raf(time * 1000);
       gsap.ticker.add(lenisRaf);
@@ -120,16 +96,9 @@ export default function HomeExperience() {
     const ctx = gsap.context((self) => {
       const q = self.selector!;
 
-      const mobileView = window.matchMedia('(max-width: 767px)').matches;
-      if (mobileView) {
-        // Mobilde blob küçülür, başlığın altında durur (pin yok)
-        blobParams.x = 0;
-        blobParams.scale = 0.6;
-      }
-
       if (reduced) {
         // Statik fallback: her şey görünür, pin/parallax yok
-        blobParams.opacity = 1;
+        galaxyParams.opacity = 1;
         gsap.set(q('.hero-line-inner'), { yPercent: 0 });
         wipeScale.value = 3;
         applyWipe();
@@ -144,7 +113,7 @@ export default function HomeExperience() {
       intro
         .to(q('.hero-kicker'), { opacity: 1, y: 0, duration: 0.6 }, 0)
         .to(q('.hero-line-inner'), { yPercent: 0, duration: 0.9, stagger: 0.12 }, 0.15)
-        .to(blobParams, { opacity: 1, duration: 1.1, ease: 'power2.out' }, 0.4)
+        .to(galaxyParams, { opacity: 1, duration: 1.1, ease: 'power2.out' }, 0.4)
         .to(q('.hero-scroll-hint'), { opacity: 1, y: 0, duration: 0.6 }, 0.9);
 
       // ── Statement: liquid wipe (onEnter'da bir kez) + kelime reveal ──
@@ -184,14 +153,14 @@ export default function HomeExperience() {
       // ── Pin'ler yalnızca desktop + no-preference ──
       const mm = gsap.matchMedia();
       mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-        // Hero pin: başlık harfleri süzülür, blob büyüyüp merkeze kayar
+        // Hero pin: başlık harfleri süzülür, galaksi saçılıp söner
         const heroTl = gsap.timeline({
           scrollTrigger: {
             trigger: q('.hero-section')[0],
             start: 'top top',
             end: '+=100%',
             pin: true,
-            scrub: 1,
+            scrub: 1.2,
           },
         });
         heroTl
@@ -202,8 +171,7 @@ export default function HomeExperience() {
             ease: 'power1.in',
             duration: 0.5,
           }, 0)
-          .to(blobParams, { scale: 1.5, x: 0, duration: 0.5, ease: 'none' }, 0)
-          .to(blobParams, { scale: 1.35, camZ: 5, duration: 0.5, ease: 'none' }, 0.5)
+          .to(galaxyParams, { scatter: 1, opacity: 0.15, duration: 1, ease: 'none' }, 0)
           .to(q('.hero-kicker, .hero-scroll-hint'), { opacity: 0, duration: 0.3 }, 0.5);
 
         // Tutorials: dikey scroll → yatay kayma
@@ -218,7 +186,7 @@ export default function HomeExperience() {
             start: 'top top',
             end: '+=150%',
             pin: true,
-            scrub: 1,
+            scrub: 1.2,
             invalidateOnRefresh: true,
             onUpdate: (st) => {
               const idx = Math.round(st.progress * (panels.length - 1));
@@ -272,7 +240,8 @@ export default function HomeExperience() {
       previewTickFn = () => {
         pos.x += (target.x - pos.x) * 0.08;
         pos.y += (target.y - pos.y) * 0.08;
-        preview.style.transform = `translate(${pos.x + 24}px, ${pos.y - 70}px)`;
+        // imlecin 24px sağ-altı; yalnızca transform (compositor-only)
+        preview.style.transform = `translate3d(${pos.x + 24}px, ${pos.y + 24}px, 0)`;
       };
       gsap.ticker.add(previewTickFn);
       const cleanupMove = () => window.removeEventListener('mousemove', onMove);
@@ -289,15 +258,15 @@ export default function HomeExperience() {
     };
   }, []);
 
-  const showPreview = (id: string | null) => {
+  const showPreview = (idx: number | null) => {
     const el = previewRef.current;
     if (!el) return;
-    if (id) {
-      el.style.backgroundImage = previewTextures[id] ? `url(${previewTextures[id]})` : 'none';
-      el.style.backgroundColor = `hsl(${hueFromId(id)}, 35%, 14%)`;
-      gsap.to(el, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out' });
-    } else {
-      gsap.to(el, { scale: 0, opacity: 0, duration: 0.35, ease: 'power3.in' });
+    const inner = el.firstElementChild as HTMLElement | null;
+    if (idx !== null) {
+      setPreviewIdx(idx);
+      if (inner) gsap.to(inner, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out' });
+    } else if (inner) {
+      gsap.to(inner, { scale: 0, opacity: 0, duration: 0.35, ease: 'power3.in' });
     }
   };
 
@@ -317,9 +286,9 @@ export default function HomeExperience() {
 
       {/* ── HERO — pinned ── */}
       <section className="hero-section relative min-h-screen overflow-hidden">
-        {/* Blob başlığın ÖNÜNDE, hafif sağda; mobilde başlığın altına iner */}
-        <div className="absolute inset-0 z-20 pointer-events-none translate-y-[26%] md:translate-y-0">
-          <LiquidBlob params={blobParams} />
+        {/* Galaksi ismin ARKASINDA, sağda — başlık asla örtülmez */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <GalaxyObject params={galaxyParams} />
         </div>
 
         <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-5 text-center">
@@ -381,7 +350,7 @@ export default function HomeExperience() {
             <li key={p.id} className="reveal-row border-t border-line-hair last:border-b">
               <article
                 data-cursor="VIEW"
-                onMouseEnter={() => showPreview(p.id)}
+                onMouseEnter={() => showPreview(i)}
                 className="group grid md:grid-cols-[140px_1fr_auto] gap-6 items-baseline py-8 md:py-12 px-2 -mx-2 hover:bg-bg-surface/60 transition-colors duration-[400ms]"
               >
                 <span
@@ -409,13 +378,36 @@ export default function HomeExperience() {
           ))}
         </ol>
 
-        {/* İmleci takip eden preview kartı */}
+        {/* İmleci takip eden preview kartı — dış katman konum (translate3d),
+            iç katman scale; cursor halkası (z-100) her zaman kartın üstünde */}
         <div
           ref={previewRef}
           aria-hidden
-          className="fixed top-0 left-0 z-40 w-[220px] h-[140px] rounded-[2px] pointer-events-none opacity-0 scale-0 origin-center bg-cover border border-line-hair"
-          style={{ imageRendering: 'pixelated', backgroundSize: 'cover' }}
-        />
+          className="fixed top-0 left-0 z-40 pointer-events-none will-change-transform"
+        >
+          <div
+            className="w-[240px] h-[150px] rounded-[2px] border border-line-hair overflow-hidden relative opacity-0 scale-0 origin-top-left"
+            style={{ backgroundColor: '#08111F' }}
+          >
+            <div className="absolute inset-0 blur-2xl">
+              <span
+                className="preview-blob-a absolute w-[130px] h-[130px] rounded-full"
+                style={{
+                  background: `radial-gradient(circle at 30% 30%, ${projects[previewIdx].gradient[0]} 0%, transparent 60%)`,
+                }}
+              />
+              <span
+                className="preview-blob-b absolute w-[130px] h-[130px] rounded-full"
+                style={{
+                  background: `radial-gradient(circle at 70% 70%, ${projects[previewIdx].gradient[1]} 0%, transparent 55%)`,
+                }}
+              />
+            </div>
+            <span className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-[0.25em] text-[#F2EBDD]/70">
+              {String(previewIdx + 1).padStart(2, '0')} — Project
+            </span>
+          </div>
+        </div>
       </section>
 
       {/* ── TUTORIALS — horizontal scroll ── */}

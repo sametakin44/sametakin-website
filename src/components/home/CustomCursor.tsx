@@ -52,8 +52,8 @@ export default function CustomCursor() {
     const tick = () => {
       ringPos.x += (pos.x - ringPos.x) * 0.15;
       ringPos.y += (pos.y - ringPos.y) * 0.15;
-      dot.style.transform = `translate(${pos.x}px, ${pos.y}px) translate(-50%, -50%)`;
-      ring.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px) translate(-50%, -50%)`;
+      dot.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)`;
+      ring.style.transform = `translate3d(${ringPos.x}px, ${ringPos.y}px, 0) translate(-50%, -50%)`;
     };
 
     window.addEventListener('mousemove', onMove, { passive: true });
@@ -73,12 +73,12 @@ export default function CustomCursor() {
       <div
         ref={dotRef}
         aria-hidden
-        className="fixed top-0 left-0 z-[100] w-[6px] h-[6px] rounded-full bg-accent pointer-events-none"
+        className="fixed top-0 left-0 z-[100] w-[6px] h-[6px] rounded-full bg-accent pointer-events-none will-change-transform"
       />
       <div
         ref={ringRef}
         aria-hidden
-        className="fixed top-0 left-0 z-[100] w-[28px] h-[28px] rounded-full border border-accent/60 pointer-events-none flex items-center justify-center"
+        className="fixed top-0 left-0 z-[100] w-[28px] h-[28px] rounded-full border border-accent/60 pointer-events-none flex items-center justify-center will-change-transform"
       >
         <span
           ref={labelRef}
