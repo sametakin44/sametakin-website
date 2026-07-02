@@ -1,14 +1,12 @@
 ---
 import { tutorialPlaylists, type PlaylistAccent } from '../../data/playlists';
-import { getPlaylistWithVerifiedThumbs } from '../../lib/youtube';
+import { getPlaylistData } from '../../lib/youtube';
 import YouTubeThumbnail from '../ui/YouTubeThumbnail';
 
-const playlists = await Promise.all(
-  tutorialPlaylists.map(async (meta) => {
-    const data = await getPlaylistWithVerifiedThumbs(meta.id);
-    return { meta, data };
-  }),
-);
+const playlists = tutorialPlaylists.map((meta) => ({
+  meta,
+  data: getPlaylistData(meta.id),
+}));
 
 const borderClass: Record<PlaylistAccent, string> = {
   accent: 'border-accent/25 hover:border-accent/50',
@@ -59,8 +57,6 @@ const hoverTitleClass: Record<PlaylistAccent, string> = {
               <YouTubeThumbnail
                 videoId={latest.id}
                 title={latest.title}
-                verifiedUrl={latest.verifiedThumbnail ?? null}
-                hasThumbnail={latest.hasThumbnail ?? false}
                 className="group-hover:scale-[1.03] transition duration-500"
                 client:visible
               />

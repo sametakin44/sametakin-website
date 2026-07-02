@@ -2,14 +2,20 @@
 import Layout from '../components/layout/Layout.astro';
 import YouTubeThumbnail from '../components/ui/YouTubeThumbnail';
 import { tutorialPlaylists } from '../data/playlists';
-import { getPlaylistWithVerifiedThumbs } from '../lib/youtube';
+import { getPlaylistData, getChannelVideos } from '../lib/youtube';
 
-const playlists = await Promise.all(
-  tutorialPlaylists.map(async (meta) => {
-    const data = await getPlaylistWithVerifiedThumbs(meta.id);
-    return { meta, data };
-  }),
-);
+const playlists = tutorialPlaylists.map((meta) => ({
+  meta,
+  data: getPlaylistData(meta.id),
+}));
+
+const channelVideos = getChannelVideos();
+
+// "jun 2026" gibi kısa, lowercase tarih.
+const shortDate = (published: string) =>
+  new Date(published)
+    .toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+    .toLowerCase();
 ---
 
 <Layout
@@ -58,8 +64,6 @@ const playlists = await Promise.all(
                   <YouTubeThumbnail
                     videoId={video.id}
                     title={video.title}
-                    verifiedUrl={video.verifiedThumbnail ?? null}
-                    hasThumbnail={video.hasThumbnail ?? false}
                     className="group-hover:scale-[1.02] transition duration-500"
                     client:visible
                   />
@@ -73,5 +77,43 @@ const playlists = await Promise.all(
         </section>
       );
     })}
+
+    {channelVideos.length > 0 && (
+      <section class="mb-16">
+        <div class="mb-6">
+          <h2 class="text-xl md:text-2xl font-medium text-ink-primary">
+            all videos
+          </h2>
+          <p class="text-sm text-ink-secondary mt-2">
+            everything on the channel, newest first
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {channelVideos.map((video) => (
+            <a
+              href={video.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group block"
+            >
+              <div class="aspect-video rounded-lg overflow-hidden bg-bg-elevated mb-3 isolate">
+                <YouTubeThumbnail
+                  videoId={video.id}
+                  title={video.title}
+                  className="group-hover:scale-[1.02] transition duration-500"
+                  client:visible
+                />
+              </div>
+              <h3 class="text-sm font-medium text-ink-primary group-hover:text-accent transition leading-snug line-clamp-2">
+                {video.title}
+              </h3>
+              <p class="text-xs font-mono text-ink-tertiary mt-1.5">
+                {shortDate(video.published)}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </section>
 </Layout>

@@ -1,0 +1,218 @@
+{
+  "lastUpdated": "2026-07-02T15:31:49.296Z",
+  "channel": {
+    "id": "UC-4rif4ktwvlvEflz-frkIw",
+    "videos": [
+      {
+        "id": "NG2LmHx0PrE",
+        "title": "Yapay Zeka Hackathonu",
+        "published": "2026-05-25T11:13:11+00:00",
+        "link": "https://www.youtube.com/shorts/NG2LmHx0PrE"
+      },
+      {
+        "id": "mfZcSZ5Hq-8",
+        "title": "Yapay zeka neden İnglizce'yi daha iyi anlıyor?",
+        "published": "2026-05-25T09:39:33+00:00",
+        "link": "https://www.youtube.com/watch?v=mfZcSZ5Hq-8"
+      },
+      {
+        "id": "SKPJaXg0gVI",
+        "title": "Yapay Zeka Kendi Verisini Üretebilir mi? | Variational Autoencoder (VAE)",
+        "published": "2026-01-01T08:28:47+00:00",
+        "link": "https://www.youtube.com/watch?v=SKPJaXg0gVI"
+      },
+      {
+        "id": "F61c8K0XfoA",
+        "title": "Bunları bilmiyorsan.. LLM'in Nasıl Çalıştığını Bilmiyorsun! #yapayzeka",
+        "published": "2025-12-08T13:59:32+00:00",
+        "link": "https://www.youtube.com/shorts/F61c8K0XfoA"
+      },
+      {
+        "id": "MFJOp_rcug0",
+        "title": "Bunları bilmiyorsan LLM’i bilmiyorsun!",
+        "published": "2025-12-07T10:00:38+00:00",
+        "link": "https://www.youtube.com/watch?v=MFJOp_rcug0"
+      },
+      {
+        "id": "rZkoctxzP5s",
+        "title": "Akarsunun sesini dinleyin",
+        "published": "2025-09-29T04:00:11+00:00",
+        "link": "https://www.youtube.com/shorts/rZkoctxzP5s"
+      },
+      {
+        "id": "qwcLcWLuDvM",
+        "title": "Autoencoder Nedir ve Nasıl Çalışır?",
+        "published": "2025-09-20T07:13:47+00:00",
+        "link": "https://www.youtube.com/watch?v=qwcLcWLuDvM"
+      },
+      {
+        "id": "4SGPtOxqtRQ",
+        "title": "🎯 Boyut Azaltma ve Latent Space Görselleştirme | PCA, LDA, t-SNE, UMAP Anlatımı 🧠📊",
+        "published": "2025-08-02T07:35:47+00:00",
+        "link": "https://www.youtube.com/watch?v=4SGPtOxqtRQ"
+      },
+      {
+        "id": "11Co0ejXgQ8",
+        "title": "RNN ve LSTM nedir?",
+        "published": "2025-03-15T11:09:09+00:00",
+        "link": "https://www.youtube.com/watch?v=11Co0ejXgQ8"
+      },
+      {
+        "id": "E-FUnZrn6Hk",
+        "title": "Kar yürüyüşü❄️ | Walking in the snow #snow #asmr",
+        "published": "2025-02-22T18:22:18+00:00",
+        "link": "https://www.youtube.com/shorts/E-FUnZrn6Hk"
+      },
+      {
+        "id": "9Vfc9dgpEns",
+        "title": "Kar yürüyüşü, Malatya/Yeşilyurt FULL HD | Walking in the snow, TURKEY FULL HD",
+        "published": "2025-02-22T08:54:36+00:00",
+        "link": "https://www.youtube.com/watch?v=9Vfc9dgpEns"
+      },
+      {
+        "id": "13nGWiIHA4I",
+        "title": "Neural Network Fonksiyonlara Nasıl Yakınsayabiliyor | Universal Function Approximation",
+        "published": "2025-02-17T14:59:53+00:00",
+        "link": "https://www.youtube.com/watch?v=13nGWiIHA4I"
+      },
+      {
+        "id": "dQSW034oVBQ",
+        "title": "🍂 Sonbaharda Meyve Toplama  🍎",
+        "published": "2025-02-14T18:24:37+00:00",
+        "link": "https://www.youtube.com/shorts/dQSW034oVBQ"
+      },
+      {
+        "id": "TMgyvLQgpy4",
+        "title": "ChatGpt Katili DeepSeek: Açıklandı!",
+        "published": "2025-02-07T05:34:16+00:00",
+        "link": "https://www.youtube.com/watch?v=TMgyvLQgpy4"
+      },
+      {
+        "id": "Tb02GNWcKyo",
+        "title": "ChatGPTden daha iyi cevap almak için bunları bilmelisin: Prompt Engineering",
+        "published": "2025-01-01T10:16:43+00:00",
+        "link": "https://www.youtube.com/watch?v=Tb02GNWcKyo"
+      }
+    ]
+  },
+  "playlists": {
+    "PLTIZB3n0fVV17MYZz38gueiEePWbX6w3x": {
+      "title": "Large Language Models",
+      "videos": [
+        {
+          "id": "mfZcSZ5Hq-8",
+          "title": "Yapay zeka neden İnglizce'yi daha iyi anlıyor?",
+          "published": "2026-05-25T09:39:33+00:00",
+          "link": "https://www.youtube.com/watch?v=mfZcSZ5Hq-8"
+        },
+        {
+          "id": "MFJOp_rcug0",
+          "title": "Bunları bilmiyorsan LLM’i bilmiyorsun!",
+          "published": "2025-12-07T10:00:38+00:00",
+          "link": "https://www.youtube.com/watch?v=MFJOp_rcug0"
+        },
+        {
+          "id": "TMgyvLQgpy4",
+          "title": "ChatGpt Katili DeepSeek: Açıklandı!",
+          "published": "2025-02-07T05:34:16+00:00",
+          "link": "https://www.youtube.com/watch?v=TMgyvLQgpy4"
+        },
+        {
+          "id": "Tb02GNWcKyo",
+          "title": "ChatGPTden daha iyi cevap almak için bunları bilmelisin: Prompt Engineering",
+          "published": "2025-01-01T10:16:43+00:00",
+          "link": "https://www.youtube.com/watch?v=Tb02GNWcKyo"
+        },
+        {
+          "id": "pHmozcoMXBk",
+          "title": "Prompt Mühendisliği | LLM Hackleme Saldırları | AI Agent",
+          "published": "2024-09-15T11:52:58+00:00",
+          "link": "https://www.youtube.com/watch?v=pHmozcoMXBk"
+        },
+        {
+          "id": "AZWUKwl-oJo",
+          "title": "RAG nedir? | Yapay Zekayı Kendi Verinizle Kullanın!",
+          "published": "2024-09-05T16:47:45+00:00",
+          "link": "https://www.youtube.com/watch?v=AZWUKwl-oJo"
+        },
+        {
+          "id": "SKNKbMZUUjY",
+          "title": "LORA - QLORA Finetuning ve Quantization Nedir? (PEFT)",
+          "published": "2024-08-24T13:40:07+00:00",
+          "link": "https://www.youtube.com/watch?v=SKNKbMZUUjY"
+        },
+        {
+          "id": "1FdzDfOWiLE",
+          "title": "ChatGpt ve Dil Modelleri (LLMs) Nasıl Çalışır?",
+          "published": "2024-08-12T11:17:47+00:00",
+          "link": "https://www.youtube.com/watch?v=1FdzDfOWiLE"
+        }
+      ]
+    },
+    "PLTIZB3n0fVV00hRu53TOUhdKcoSGWJgf9": {
+      "title": "Deep Learning",
+      "videos": [
+        {
+          "id": "SKPJaXg0gVI",
+          "title": "Yapay Zeka Kendi Verisini Üretebilir mi? | Variational Autoencoder (VAE)",
+          "published": "2026-01-01T08:28:47+00:00",
+          "link": "https://www.youtube.com/watch?v=SKPJaXg0gVI"
+        },
+        {
+          "id": "qwcLcWLuDvM",
+          "title": "Autoencoder Nedir ve Nasıl Çalışır?",
+          "published": "2025-09-20T07:13:47+00:00",
+          "link": "https://www.youtube.com/watch?v=qwcLcWLuDvM"
+        },
+        {
+          "id": "4SGPtOxqtRQ",
+          "title": "🎯 Boyut Azaltma ve Latent Space Görselleştirme | PCA, LDA, t-SNE, UMAP Anlatımı 🧠📊",
+          "published": "2025-08-02T07:35:47+00:00",
+          "link": "https://www.youtube.com/watch?v=4SGPtOxqtRQ"
+        },
+        {
+          "id": "11Co0ejXgQ8",
+          "title": "RNN ve LSTM nedir?",
+          "published": "2025-03-15T11:09:09+00:00",
+          "link": "https://www.youtube.com/watch?v=11Co0ejXgQ8"
+        },
+        {
+          "id": "13nGWiIHA4I",
+          "title": "Neural Network Fonksiyonlara Nasıl Yakınsayabiliyor | Universal Function Approximation",
+          "published": "2025-02-17T14:59:53+00:00",
+          "link": "https://www.youtube.com/watch?v=13nGWiIHA4I"
+        },
+        {
+          "id": "JimY4v-FdN8",
+          "title": "Pytorch'ta LSTM ve Transformer Nasıl Kullanılır? | Detaylı Anlatım",
+          "published": "2024-02-29T20:43:45+00:00",
+          "link": "https://www.youtube.com/watch?v=JimY4v-FdN8"
+        },
+        {
+          "id": "sF4lqBXtdf4",
+          "title": "Transformer Mimarisi | Detaylı Anlatım #yapayzeka",
+          "published": "2024-02-17T06:43:54+00:00",
+          "link": "https://www.youtube.com/watch?v=sF4lqBXtdf4"
+        },
+        {
+          "id": "lPSYCaPDyO0",
+          "title": "Word2Vec ve Attention | Detaylı Anlatım",
+          "published": "2024-02-13T19:11:56+00:00",
+          "link": "https://www.youtube.com/watch?v=lPSYCaPDyO0"
+        },
+        {
+          "id": "lW_AtSWsOT0",
+          "title": "Deep Learning ile Sınıflandırma | Detaylı Anlatım",
+          "published": "2024-02-02T18:18:41+00:00",
+          "link": "https://www.youtube.com/watch?v=lW_AtSWsOT0"
+        },
+        {
+          "id": "QElbZOJuh2E",
+          "title": "Deep Learning Temelleri | Detaylı Anlatım",
+          "published": "2024-01-30T21:39:01+00:00",
+          "link": "https://www.youtube.com/watch?v=QElbZOJuh2E"
+        }
+      ]
+    }
+  }
+}

@@ -28,8 +28,10 @@ src/
     layout/      navbar, footer, layout wrapper
   content/
     blog/        markdown posts
-  data/          projects.ts, currently.ts, playlists.ts
-  lib/           youtube.ts, cn.ts
+  data/          projects.ts, currently.ts, playlists.ts, videos.json (committed video archive)
+  lib/           youtube.ts (reads videos.json), cn.ts
+scripts/
+  update-videos.mjs   merges YouTube RSS into videos.json (weekly workflow / npm run update-videos)
   pages/         index, experience, contact, videos, writing
   styles/        global.css
 public/
@@ -65,14 +67,17 @@ Post body…
 
 Pushing the file to `main` triggers a Cloudflare Pages rebuild automatically — the post is live in ~1–2 minutes.
 
-### Surface new YouTube videos
+### Automatic content updates (YouTube videos)
 
-YouTube playlist feeds are read at **build time**, so new videos only appear after a rebuild. Two ways:
+Video data lives in **`src/data/videos.json`** — a committed archive, read at build time. The site never fetches YouTube during a build.
 
-1. **Automatic daily rebuild** (preferred). `.github/workflows/daily-rebuild.yml` runs every day at 03:00 UTC. It posts to a Cloudflare Pages deploy hook URL kept in the `CLOUDFLARE_DEPLOY_HOOK` GitHub secret. Setup steps are listed in the deploy section below.
-2. **Manual trigger.** Go to the repo → Actions → *Daily Rebuild* → *Run workflow*. Or `curl -X POST <deploy-hook-url>` from anywhere.
+- **Weekly update.** `.github/workflows/weekly-update.yml` runs every Monday at 03:00 UTC: it pulls the channel + playlist RSS feeds via `scripts/update-videos.mjs`, merges new videos into `videos.json` (existing entries are never deleted, deduped by id), and commits the result. The push triggers the normal Pages build — no deploy hook involved.
+- **Instant update.** Actions → *Weekly Video Update* → *Run workflow*. Or locally: `npm run update-videos`, then commit `videos.json`.
+- **Failure-safe.** If an RSS feed is down, that section keeps its old data and the script still exits 0 — the site never breaks.
+- **Keepalive.** On weeks with no new videos the workflow pushes an empty `chore: keepalive` commit so GitHub's 60-day scheduled-workflow auto-disable never kicks in.
+- The old `CLOUDFLARE_DEPLOY_HOOK` secret is no longer used and can be deleted.
 
-To change which playlists show up, edit `src/data/playlists.ts`:
+To change which playlists show up, edit `src/data/playlists.ts` (and add the playlist id to `videos.json` under `playlists` with an empty `videos: []` — the next script run fills it):
 
 ```ts
 export const tutorialPlaylists: TutorialPlaylist[] = [
@@ -81,7 +86,7 @@ export const tutorialPlaylists: TutorialPlaylist[] = [
 ];
 ```
 
-`manualVideoCount: null` uses the RSS count (capped at 15). Set a number to hard-code.
+`manualVideoCount: null` uses the video count from `videos.json`. Set a number to hard-code.
 
 ### Update the experience timeline
 
@@ -143,9 +148,8 @@ The project deploys to Cloudflare Pages. Build command is `npm run build`, outpu
 1. Push the repo to GitHub.
 2. In Cloudflare Pages, *Create application* → *Pages* → *Connect to Git* → pick the repo.
 3. Framework preset: **Astro**. Build command: `npm run build`. Build output: `dist`. Save and deploy.
-4. After the first deploy, in *Settings* → *Builds & deployments* → *Deploy hooks*, create a hook named `scheduled-daily` on branch `main`. Copy the URL.
-5. On GitHub, *Settings* → *Secrets and variables* → *Actions* → *New repository secret*: name `CLOUDFLARE_DEPLOY_HOOK`, value = the URL from step 4.
-6. The daily rebuild workflow will pick it up on the next UTC 03:00 tick. You can test it immediately with *Actions* → *Daily Rebuild* → *Run workflow*.
+
+No deploy hook is needed — every push to `main` (including the weekly workflow's `videos.json` commits) triggers a build automatically.
 
 ### Pre-deploy checklist
 
