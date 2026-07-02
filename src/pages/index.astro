@@ -1,16 +1,8 @@
 ---
 import Layout from '../components/layout/Layout.astro';
-import Hero from '../components/home/Hero.astro';
-import Currently from '../components/home/Currently.astro';
-import FeaturedWork from '../components/home/FeaturedWork.astro';
-import Tutorials from '../components/home/Tutorials.astro';
-import Writing from '../components/home/Writing.astro';
+import HomeExperience from '../components/home/HomeExperience.tsx';
 ---
 
-<Layout>
-  <Hero />
-  <Currently />
-  <FeaturedWork />
-  <Tutorials />
-  <Writing />
+<Layout hideFooter>
+  <HomeExperience client:load />
 </Layout>

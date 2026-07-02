@@ -12,7 +12,8 @@ const links = [
 ---
 
 <nav
-  class="sticky top-0 z-50 w-full backdrop-blur-md border-b border-line-hair"
+  id="site-nav"
+  class="sticky top-0 z-50 w-full backdrop-blur-sm border-b border-line-hair"
   style="background-color: var(--bg-glass)"
 >
   <div class="mx-auto max-w-[1200px] px-5 flex items-center justify-between h-14">
@@ -48,3 +49,19 @@ const links = [
     </div>
   </div>
 </nav>
+
+<script>
+  // Aşağı inerken gizlen, yukarı çıkınca görün (Lenis native scroll'u sürdüğü
+  // için window scroll event'i her sayfada çalışır).
+  const nav = document.getElementById('site-nav');
+  let last = 0;
+  window.addEventListener(
+    'scroll',
+    () => {
+      const y = window.scrollY;
+      nav?.classList.toggle('nav-hidden', y > last && y > 80);
+      last = y;
+    },
+    { passive: true },
+  );
+</script>

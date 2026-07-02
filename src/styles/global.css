@@ -104,6 +104,54 @@ h1, h2, h3 {
   }
 }
 
+/* ── Lenis smooth scroll ── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* ── Custom cursor aktifken native cursor gizli ── */
+.custom-cursor-on,
+.custom-cursor-on * {
+  cursor: none !important;
+}
+
+/* ── Outline tipografi (work numaraları, "Let's talk") ── */
+.num-outline {
+  -webkit-text-stroke: 1px var(--accent);
+  color: transparent;
+}
+
+.lets-talk {
+  -webkit-text-stroke: 1px var(--text-primary);
+  color: transparent;
+  transition: color 0.4s ease;
+}
+.lets-talk:hover {
+  color: var(--text-primary);
+}
+
+/* ── Navbar: scroll yönüne duyarlı gizlenme ── */
+#site-nav {
+  transition: transform 0.3s ease;
+}
+#site-nav.nav-hidden {
+  transform: translateY(-100%);
+}
+
+/* ── Tutorials: aktif panel thumbnail'ı ── */
+.tut-thumb img,
+.tut-thumb > div {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tut-panel.is-active .tut-thumb img,
+.tut-panel.is-active .tut-thumb > div {
+  transform: scale(1.03);
+}
+
 /* ── Selection ── */
 ::selection {
   background-color: var(--accent);

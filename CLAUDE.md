@@ -15,7 +15,9 @@ There is no test suite or separate linter; `astro check` inside `npm run build` 
 
 ## What this is
 
-Personal portfolio site (Samet Akın): Astro 6 static site with React 19 islands, Tailwind CSS 4, MDX, Framer Motion, Three.js. Deployed on Cloudflare Pages (build command `npm run build`, output `dist/`). Some code comments are in Turkish.
+Personal portfolio site (Samet Akın): Astro 6 static site with React 19 islands, Tailwind CSS 4, MDX, Three.js, GSAP + ScrollTrigger, Lenis. Deployed on Cloudflare Pages (build command `npm run build`, output `dist/`). Some code comments are in Turkish.
+
+**The homepage is one big React island** ([src/components/home/HomeExperience.tsx](src/components/home/HomeExperience.tsx), `client:load`): GSAP/Lenis/Three coordination lives in that single root — a fullscreen fbm-shader background ([LiquidBackground.tsx](src/components/home/LiquidBackground.tsx)), a transmission-glass blob ([LiquidBlob.tsx](src/components/home/LiquidBlob.tsx)), custom cursor, pinned hero, horizontal-scroll tutorials, and a marquee finale. All animation shares one RAF via `gsap.ticker`. Pins run only on `(min-width: 768px) and (prefers-reduced-motion: no-preference)`; reduced-motion gets a static fallback and no Lenis. Inner pages (/videos, /writing, /experience, /contact) stay plain Astro and only inherit the color/font system. The homepage passes `hideFooter` to Layout — its contact section replaces the footer.
 
 ## Architecture
 
